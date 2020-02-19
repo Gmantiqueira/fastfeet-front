@@ -2,16 +2,16 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
     height: 100%;
-    background: #F5F5F5;
+    background: #f5f5f5;
 `;
 
 export const Header = styled.nav`
-    background: #FFFFFF;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
     display: flex;
     height: 100%;
     flex-wrap: wrap;
     max-height: 64px;
-    padding: 16px 0;
     width: 100%;
     div {
         align-items: center;
@@ -20,20 +20,41 @@ export const Header = styled.nav`
         justify-content: center;
     }
     .logo {
-        border-right: 1px solid #DDD;
+        border-right: 1px solid #ddd;
+        margin: 16px 0;
         max-width: 195px;
     }
     .menu {
         justify-content: flex-start;
         padding: 0px 30px;
         a {
-            color: #999999;
+            color: #999;
+            font-weight: bold;
             margin-right: 20px;
+            text-transform: uppercase;
+            transition: 0.2s ease color;
+            &:hover {
+                color: #444;
+            }
         }
     }
     .profile {
-        border-right: 1px solid #DDD;
+        align-items: flex-end;
         flex-direction: column;
+        justify-content: center;
+        margin-right: 30px;
         max-width: 195px;
+        * {
+            font-size: 14px;
+            line-height: 19px;
+        }
+        h4 {
+            color: #666;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        p {
+            color: #de3b3b;
+        }
     }
 `;
