@@ -3,15 +3,17 @@ import { darken } from 'polished';
 
 export const Wrapper = styled.div`
     height: 100%;
-    background: linear-gradient(-90deg, #7159c1, #ab59c1);
+    background: #7D40E7 0% 0% no-repeat padding-box;
     display: flex;
     justify-content: center;
     align-items: center;
 `;
 
 export const Content = styled.div`
+    height: 100%;
+    max-height: 425px;
     width: 100%;
-    max-width: 315px;
+    max-width: 360px;
     text-align: center;
 
     form {
