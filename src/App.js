@@ -8,12 +8,12 @@ import Routes from './routes';
 import history from './services/history';
 
 function App() {
-  return (
-    <Router history={history}>
-      <Routes />
-      <GlobalStyle />
-    </Router>
-  );
+    return (
+        <Router history={history}>
+            <Routes />
+            <GlobalStyle />
+        </Router>
+    );
 }
 
 export default App;
