@@ -2,6 +2,9 @@ import React from 'react';
 
 import Grid from '@/components/Grid';
 
+import Add from '@/assets/add.svg';
+import Search from '@/assets/search.svg';
+
 import { Container } from './styles';
 
 export default function Dashboard() {
@@ -10,7 +13,7 @@ export default function Dashboard() {
             <h1>Gerenciando encomendas</h1>
             <div className="actions">
                 <div className="input-container">
-                    <i className="material-icons">search</i>
+                    <img src={Search} alt="Ícone de pesquisa" />
                     <input
                         placeholder="Buscar por encomendas"
                         name="search"
@@ -18,7 +21,7 @@ export default function Dashboard() {
                     />
                 </div>
                 <button type="button">
-                    <i className="material-icons">add</i>
+                    <img src={Add} alt="Ícone de adicionar" />
                     Cadastrar
                 </button>
             </div>

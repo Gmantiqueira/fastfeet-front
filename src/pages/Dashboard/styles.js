@@ -24,7 +24,7 @@ export const Container = styled.div`
             display: flex;
             height: 36px;
             padding: 10px 16px;
-            i {
+            img {
                 color: #999;
             }
             input {
@@ -50,9 +50,8 @@ export const Container = styled.div`
             text-transform: uppercase;
             transition: 0.2s ease background;
             width: 142px;
-            i {
-                font-size: 24px;
-                margin-right: 8px;
+            img {
+                margin-right: 4px;
             }
             &:hover {
                 background: ${darken(0.05, '#7d40e7')};
