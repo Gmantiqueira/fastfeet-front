@@ -14,4 +14,8 @@ export const Wrapper = styled.div`
             text-transform: uppercase;
         }
     }
+    main {
+        display: flex;
+        flex-direction: column;
+    }
 `;
