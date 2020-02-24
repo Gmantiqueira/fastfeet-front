@@ -64,7 +64,7 @@ export default function Dashboard() {
             deliveryman: 'Gabriel Antiqueira',
             city: 'Bauru',
             state: 'São Paulo',
-            status: 'Retirada',
+            status: 'Cancelada',
         },
     ];
 

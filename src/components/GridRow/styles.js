@@ -2,17 +2,23 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
     background: #fff;
+    border-radius: 4px;
     display: flex;
     height: 57px;
     justify-content: space-between;
     margin-bottom: 20px;
     padding: 15px 25px;
     width: 100%;
+    .status {
+        font-size: 14px;
+        letter-spacing: 0;
+        text-transform: uppercase;
+    }
 `;
 
 export const Column = styled.div`
     flex-shrink: ${props => props.width};
-    font-size: 14px;
+    font-size: 16px;
     line-height: 19px;
     width: 100%;
 `;
@@ -52,10 +58,11 @@ export const Status = styled.div`
     border-radius: 12px;
     color: ${props => statusColor(props.type).darkColor};
     display: flex;
-    height: 25px;
     font-weight: bold;
     justify-content: center;
-    width: 100px;
+    max-width: 120px;
+    padding: 4px;
+    width: auto;
     &:before {
         background: ${props => statusColor(props.type).darkColor};
         border-radius: 50%;

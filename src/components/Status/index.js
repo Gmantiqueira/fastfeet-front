@@ -1,7 +1,0 @@
-import React from 'react';
-
-import { Wrapper } from './styles';
-
-export default function Status() {
-    return <Wrapper>Status</Wrapper>;
-}
