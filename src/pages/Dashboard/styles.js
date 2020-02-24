@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { darken } from 'polished';
 
 export const Container = styled.div`
-    height: 100%;
+    max-height: 100%;
     margin: 0 auto;
     max-width: 1200px;
     width: 100%;
@@ -11,7 +11,7 @@ export const Container = styled.div`
         line-height: 32px;
         margin-top: 34px;
     }
-    .actions {
+    .topbar.actions {
         display: flex;
         justify-content: space-between;
         margin-bottom: 30px;
