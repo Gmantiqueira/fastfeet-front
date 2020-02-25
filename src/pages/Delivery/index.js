@@ -10,7 +10,7 @@ import ViewIcon from '@/assets/visibility.svg';
 
 import { Container } from './styles';
 
-export default function Dashboard() {
+export default function Delivery() {
     const gridSettings = [
         {
             title: 'ID',
