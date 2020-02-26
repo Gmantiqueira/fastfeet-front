@@ -10,19 +10,19 @@ export const Wrapper = styled.div`
     img {
         height: auto;
         margin: 0 auto;
-        margin-bottom: 40px;
+        margin-bottom: 25px;
         width: 260px;
     }
 
     form {
         display: flex;
         flex-direction: column;
-        label,
-        span {
+        p {
             color: #444;
             font-size: 14px;
             font-weight: bold;
             margin-bottom: 9px;
+            margin-top: 15px;
             line-height: 19px;
             text-transform: uppercase;
         }
@@ -31,9 +31,11 @@ export const Wrapper = styled.div`
             border: 1px solid #ddd;
             border-radius: 4px;
             height: 45px;
-            margin-bottom: 15px;
             padding: 0 15px;
             width: 300px;
+        }
+        span {
+            color: #de3b3b;
         }
         button {
             background: #7d40e7;
@@ -43,6 +45,7 @@ export const Wrapper = styled.div`
             font-weight: bold;
             height: 45px;
             line-height: 21px;
+            margin-top: 15px;
             transition: 0.2s ease background;
             width: 300px;
             &:hover {

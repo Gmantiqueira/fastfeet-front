@@ -29,14 +29,14 @@ export default function SignIn() {
             <img src={Logo} alt="Logo da empresa FastFeet" />
 
             <Form schema={schema} onSubmit={handleSubmit}>
-                <span>Seu e-mail</span>
+                <p>Seu e-mail</p>
                 <Input
                     id="email"
                     name="email"
                     type="email"
                     placeholder="exemplo@email.com"
                 />
-                <span>Sua senha</span>
+                <p>Sua senha</p>
                 <Input
                     id="password"
                     name="password"

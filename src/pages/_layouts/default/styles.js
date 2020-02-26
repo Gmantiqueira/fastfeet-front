@@ -40,6 +40,7 @@ export const Header = styled.nav`
     }
     .profile {
         align-items: flex-end;
+        display: flex;
         flex-direction: column;
         justify-content: center;
         margin-right: 30px;
