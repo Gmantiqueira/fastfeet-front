@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Grid from '@/components/Grid';
+import ContentHeader from '@/components/ContentHeader';
 
 import AddIcon from '@/assets/add.svg';
 import CreateIcon from '@/assets/create.svg';
@@ -88,21 +89,19 @@ export default function Delivery() {
 
     return (
         <Container>
-            <h1>Gerenciando encomendas</h1>
-            <div className="topbar actions">
-                <div className="input-container">
-                    <img src={SearchIcon} alt="Ícone de pesquisa" />
-                    <input
-                        placeholder="Buscar por encomendas"
-                        name="search"
-                        type="text"
-                    />
-                </div>
+            <ContentHeader
+                title="Gerenciando encomendas"
+                placeholder="Buscar por encomendas"
+            >
                 <button type="button">
+                    <img src={AddIcon} alt="Ícone de adicionar" />
+                    Voltar
+                </button>
+                <button className="primary" type="button">
                     <img src={AddIcon} alt="Ícone de adicionar" />
                     Cadastrar
                 </button>
-            </div>
+            </ContentHeader>
             <Grid settings={gridSettings} data={data} actions={actions} />
         </Container>
     );
