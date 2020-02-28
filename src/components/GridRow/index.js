@@ -16,6 +16,13 @@ const Content = function Content({ contentData, field, actions }) {
             </Status>
         );
     }
+    if (field === 'id') {
+        return contentData[field] < 10 ? (
+            <span>{`#0${contentData[field]}`}</span>
+        ) : (
+            <span>{`#${contentData[field]}`}</span>
+        );
+    }
     return <span>{contentData[field]}</span>;
 };
 export default function GridRow({ settings, data, actions }) {

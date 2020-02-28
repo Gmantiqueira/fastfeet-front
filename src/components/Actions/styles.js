@@ -22,10 +22,11 @@ export const Button = styled.button`
 
 export const Menu = styled.div`
     background: #fff;
+    border-radius: 4px;
     box-shadow: 0px 0px 2px #00000026;
     display: ${props => (props.isVisible ? 'flex' : 'none')};
     flex-direction: column;
-    height: 120px;
+    max-height: 120px;
     left: -32px;
     padding: 15px 10px;
     position: absolute;
