@@ -51,9 +51,10 @@ export const Wrapper = styled.div`
                     justify-content: center;
                     line-height: 14px;
                     margin-right: 16px;
+                    max-width: 142px;
+                    padding: 0 16px;
                     text-transform: uppercase;
                     transition: 0.2s ease background;
-                    width: 142px;
                     &:last-child {
                         margin-right: 0;
                     }
