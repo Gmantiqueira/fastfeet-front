@@ -11,7 +11,7 @@ import ViewIcon from '@/assets/visibility.svg';
 
 import { Container } from './styles';
 
-export default function Delivery() {
+export default function Delivery(props) {
     const gridSettings = [
         {
             title: 'ID',
@@ -87,6 +87,10 @@ export default function Delivery() {
         },
     ];
 
+    function handleRegisterLink() {
+        props.history.push('/register/recipient');
+    }
+
     return (
         <Container>
             <ContentHeader
@@ -97,7 +101,11 @@ export default function Delivery() {
                     <img src={AddIcon} alt="Ícone de adicionar" />
                     Voltar
                 </button>
-                <button className="primary" type="button">
+                <button
+                    onClick={handleRegisterLink}
+                    className="primary"
+                    type="button"
+                >
                     <img src={AddIcon} alt="Ícone de adicionar" />
                     Cadastrar
                 </button>
