@@ -97,10 +97,6 @@ export default function Delivery(props) {
                 title="Gerenciando encomendas"
                 placeholder="Buscar por encomendas"
             >
-                <button type="button">
-                    <img src={AddIcon} alt="Ícone de adicionar" />
-                    Voltar
-                </button>
                 <button
                     onClick={handleRegisterLink}
                     className="primary"

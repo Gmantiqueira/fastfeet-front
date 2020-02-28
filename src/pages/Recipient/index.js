@@ -71,10 +71,6 @@ export default function Delivery(props) {
                 title="Gerenciando destinatários"
                 placeholder="Buscar por destinatários"
             >
-                <button type="button">
-                    <img src={AddIcon} alt="Ícone de adicionar" />
-                    Voltar
-                </button>
                 <button
                     onClick={handleRegisterLink}
                     className="primary"
