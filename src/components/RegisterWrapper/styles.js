@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
+    background: #fff;
     display: flex;
     flex-direction: column;
     max-width: 900px;
@@ -33,7 +34,7 @@ export const Wrapper = styled.div`
             input {
                 border: 1px solid #ddd;
                 border-radius: 4px;
-                color: #ddd;
+                color: #666;
                 height: 45px;
                 padding: 0 15px;
             }
