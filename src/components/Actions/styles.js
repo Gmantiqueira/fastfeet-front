@@ -27,11 +27,13 @@ export const Menu = styled.div`
     display: ${props => (props.isVisible ? 'flex' : 'none')};
     flex-direction: column;
     max-height: 120px;
-    left: -32px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0 auto;
     padding: 15px 10px;
     position: absolute;
     top: 40px;
-    width: 150px;
+    width: ${props => (props.width ? `${props.width}px` : '150px')};
     z-index: 2;
     &:after {
         background: transparent;
@@ -41,7 +43,8 @@ export const Menu = styled.div`
         filter: drop-shadow(0px -2px 1px #eee);
         content: '';
         height: 0;
-        left: calc(75px - (10px / 2));
+        left: 50%;
+        transform: translateX(-50%);
         top: -10px;
         position: absolute;
         width: 0;

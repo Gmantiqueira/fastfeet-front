@@ -5,7 +5,7 @@ import { Wrapper, Column } from './styles';
 
 // import { Container } from './styles';
 
-export default function Grid({ settings, data, actions }) {
+export default function Grid({ settings, data, actions, actionsWidth }) {
     return (
         <Wrapper>
             <header>
@@ -23,7 +23,12 @@ export default function Grid({ settings, data, actions }) {
             </header>
             {data.map(row => {
                 return (
-                    <GridRow settings={settings} data={row} actions={actions} />
+                    <GridRow
+                        settings={settings}
+                        data={row}
+                        actions={actions}
+                        actionsWidth={actionsWidth}
+                    />
                 );
             })}
         </Wrapper>
@@ -38,9 +43,11 @@ Grid.propTypes = {
         })
     ).isRequired,
     actions: PropTypes.arrayOf(PropTypes.object),
+    actionsWidth: PropTypes.number,
     data: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 Grid.defaultProps = {
     actions: false,
+    actionsWidth: 0,
 };

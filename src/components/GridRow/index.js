@@ -5,9 +5,18 @@ import Actions from '@/components/Actions';
 
 import { Wrapper, Column, Status } from './styles';
 
-const Content = function Content({ contentData, field, actions }) {
+const Content = function Content({
+    contentData,
+    field,
+    actions,
+    actionsWidth,
+}) {
     if (field === 'actions') {
-        return actions ? <Actions actions={actions} /> : <span>N/A</span>;
+        return actions ? (
+            <Actions actions={actions} width={actionsWidth} />
+        ) : (
+            <span>N/A</span>
+        );
     }
     if (field === 'status') {
         return (
@@ -16,7 +25,7 @@ const Content = function Content({ contentData, field, actions }) {
             </Status>
         );
     }
-    if (field === 'id') {
+    if (field === 'id' || field === 'delivery_id') {
         return contentData[field] < 10 ? (
             <span>{`#0${contentData[field]}`}</span>
         ) : (
@@ -25,7 +34,7 @@ const Content = function Content({ contentData, field, actions }) {
     }
     return <span>{contentData[field]}</span>;
 };
-export default function GridRow({ settings, data, actions }) {
+export default function GridRow({ settings, data, actions, actionsWidth }) {
     return (
         <Wrapper>
             {settings.map(field => {
@@ -39,6 +48,7 @@ export default function GridRow({ settings, data, actions }) {
                             contentData={data}
                             field={field.key}
                             actions={actions}
+                            actionsWidth={actionsWidth}
                         />
                     </Column>
                 );
@@ -51,6 +61,7 @@ Content.propTypes = {
     contentData: PropTypes.shape().isRequired,
     field: PropTypes.string.isRequired,
     actions: PropTypes.arrayOf(PropTypes.object).isRequired,
+    actionsWidth: PropTypes.number.isRequired,
 };
 
 GridRow.propTypes = {
@@ -62,4 +73,5 @@ GridRow.propTypes = {
     ).isRequired,
     data: PropTypes.shape().isRequired,
     actions: PropTypes.arrayOf(PropTypes.object).isRequired,
+    actionsWidth: PropTypes.number.isRequired,
 };

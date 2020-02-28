@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Button, Menu, Option } from './styles';
 
-export default function Actions({ actions }) {
+export default function Actions({ actions, width }) {
     const [visible, setVisibility] = useState(false);
 
     useEffect(() => {
@@ -30,7 +30,7 @@ export default function Actions({ actions }) {
             }}
         >
             <span>...</span>
-            <Menu isVisible={visible}>
+            <Menu width={width} isVisible={visible}>
                 {actions.map(option => {
                     return (
                         <Option key={option.text} onClick={option.action}>
@@ -45,9 +45,6 @@ export default function Actions({ actions }) {
 }
 
 Actions.propTypes = {
-    actions: PropTypes.arrayOf(PropTypes.shape()),
-};
-
-Actions.defaultProps = {
-    actions: [],
+    actions: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+    width: PropTypes.number.isRequired,
 };
