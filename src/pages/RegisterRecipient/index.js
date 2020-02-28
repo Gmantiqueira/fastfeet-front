@@ -2,7 +2,10 @@ import React from 'react';
 import * as Yup from 'yup';
 import { Form, Input } from '@rocketseat/unform';
 
+import AddIcon from '@/assets/add.svg';
+
 import RegisterWrapper from '@/components/RegisterWrapper';
+import ContentHeader from '@/components/ContentHeader';
 import { Container } from './styles';
 
 const schema = Yup.object().shape({
@@ -15,13 +18,23 @@ const schema = Yup.object().shape({
     zip_code: Yup.string().required('O CEP é obrigatório'),
 });
 
-export default function RegisterDelivery() {
+export default function RegisterRecipient() {
     function handleSubmit(data) {
         console.log(data);
     }
 
     return (
         <Container>
+            <ContentHeader title="Cadastro de destinatário">
+                <button type="button">
+                    <img src={AddIcon} alt="Ícone de adicionar" />
+                    Voltar
+                </button>
+                <button className="primary" type="button">
+                    <img src={AddIcon} alt="Ícone de adicionar" />
+                    Salvar
+                </button>
+            </ContentHeader>
             <RegisterWrapper>
                 <Form schema={schema} onSubmit={handleSubmit}>
                     <div className="row">
