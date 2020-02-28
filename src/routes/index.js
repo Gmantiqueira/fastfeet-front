@@ -5,7 +5,7 @@ import Route from './Route';
 import SignIn from '../pages/SignIn';
 import Delivery from '../pages/Delivery';
 
-import RegisterDelivery from '../pages/RegisterDelivery';
+import RegisterRecipient from '../pages/RegisterRecipient';
 
 export default function Routes() {
     return (
@@ -13,8 +13,9 @@ export default function Routes() {
             <Route path="/" exact component={SignIn} />
             <Route path="/delivery" component={Delivery} isPrivate />
             <Route
-                path="/register/delivery"
-                component={RegisterDelivery}
+                path="/register/recipient"
+                exact
+                component={RegisterRecipient}
                 isPrivate
             />
         </Switch>
