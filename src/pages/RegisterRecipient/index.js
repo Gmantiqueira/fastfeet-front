@@ -2,7 +2,8 @@ import React from 'react';
 import * as Yup from 'yup';
 import { Form, Input } from '@rocketseat/unform';
 
-import AddIcon from '@/assets/add.svg';
+import arrowLeftIcon from '@/assets/arrow_left.svg';
+import doneIcon from '@/assets/done.svg';
 
 import RegisterWrapper from '@/components/RegisterWrapper';
 import ContentHeader from '@/components/ContentHeader';
@@ -27,11 +28,11 @@ export default function RegisterRecipient() {
         <Container>
             <ContentHeader title="Cadastro de destinatário">
                 <button type="button">
-                    <img src={AddIcon} alt="Ícone de adicionar" />
+                    <img src={arrowLeftIcon} alt="Ícone de voltar" />
                     Voltar
                 </button>
                 <button className="primary" type="button">
-                    <img src={AddIcon} alt="Ícone de adicionar" />
+                    <img src={doneIcon} alt="Ícone de finalizado" />
                     Salvar
                 </button>
             </ContentHeader>
