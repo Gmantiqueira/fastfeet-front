@@ -33,6 +33,9 @@ export const Header = styled.nav`
             margin-right: 20px;
             text-transform: uppercase;
             transition: 0.2s ease color;
+            &.active {
+                color: #444;
+            }
             &:hover {
                 color: #444;
             }

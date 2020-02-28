@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { useDispatch } from 'react-redux';
@@ -19,15 +19,23 @@ export default function DefaultLayout({ children }) {
         <Wrapper>
             <Header>
                 <div className="logo">
-                    <Link to="/">
+                    <NavLink to="/">
                         <img src={Logo} alt="Logo" />
-                    </Link>
+                    </NavLink>
                 </div>
                 <div className="menu">
-                    <Link to="/delivery">Encomendas</Link>
-                    <Link to="/deliveryman">Entregadores</Link>
-                    <Link to="/recipient">Destinatários</Link>
-                    <Link to="/problems">Problemas</Link>
+                    <NavLink to="/delivery" activeClassName="active">
+                        Encomendas
+                    </NavLink>
+                    <NavLink to="/deliveryman" activeClassName="active">
+                        Entregadores
+                    </NavLink>
+                    <NavLink to="/recipient" activeClassName="active">
+                        Destinatários
+                    </NavLink>
+                    <NavLink to="/problems" activeClassName="active">
+                        Problemas
+                    </NavLink>
                 </div>
 
                 <button
