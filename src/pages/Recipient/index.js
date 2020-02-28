@@ -16,86 +16,60 @@ export default function Delivery(props) {
         {
             title: 'ID',
             key: 'id',
-            widthProportion: 1.1,
+            widthProportion: 1.5,
         },
         {
-            title: 'Destinatário',
-            key: 'recipient',
+            title: 'Nome',
+            key: 'name',
             widthProportion: 1,
         },
         {
-            title: 'Entregador',
-            key: 'deliveryman',
-            widthProportion: 1,
-        },
-        {
-            title: 'Cidade',
-            key: 'city',
-            widthProportion: 1,
-        },
-        {
-            title: 'Estado',
-            key: 'state',
-            widthProportion: 1,
-        },
-        {
-            title: 'Status',
-            key: 'status',
+            title: 'Endereço',
+            key: 'address',
             widthProportion: 1,
         },
         {
             title: 'Ações',
             key: 'actions',
-            widthProportion: 1.1,
+            widthProportion: 1.5,
         },
     ];
 
     const data = [
         {
             id: 0,
-            recipient: 'Ludwig van Beethoven',
-            deliveryman: 'Gabriel Antiqueira',
-            city: 'Bauru',
-            state: 'São Paulo',
-            status: 'Entregue',
+            name: 'Ludwig van Beethoven',
+            address: 'Avenida Paulista',
         },
         {
-            id: 0,
-            recipient: 'Ludwig van Beethoven',
-            deliveryman: 'Gabriel Antiqueira',
-            city: 'Bauru',
-            state: 'São Paulo',
-            status: 'Cancelada',
+            id: 1,
+            name: 'Wolfgang Amadeus',
+            address: 'Avenida Nações Unidas',
         },
     ];
 
     const actions = [
         {
-            text: 'Visualizar',
-            icon: ViewIcon,
-            action: () => console.log('Action de visualizar'),
-        },
-        {
             text: 'Editar',
             icon: CreateIcon,
-            action: () => console.log('Action de editar'),
+            action: (data = 'teste edição') => console.log(data),
         },
         {
             text: 'Excluir',
             icon: DeleteIcon,
-            action: () => console.log('Action de excluir'),
+            action: (data = 'teste excluir') => console.log(data),
         },
     ];
 
     function handleRegisterLink() {
-        props.history.push('/register/delivery');
+        props.history.push('/register/recipient');
     }
 
     return (
         <Container>
             <ContentHeader
-                title="Gerenciando encomendas"
-                placeholder="Buscar por encomendas"
+                title="Gerenciando destinatários"
+                placeholder="Buscar por destinatários"
             >
                 <button type="button">
                     <img src={AddIcon} alt="Ícone de adicionar" />
