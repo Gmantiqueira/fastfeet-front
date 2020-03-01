@@ -1,5 +1,4 @@
 export function registerDeliveryRequest(data) {
-    console.log(data);
     return {
         type: '@delivery/REGISTER_DELIVERY_REQUEST',
         payload: { data },
@@ -15,6 +14,27 @@ export function registerDeliverySuccess() {
 export function registerDeliveryFailure(data) {
     return {
         type: '@delivery/REGISTER_DELIVERY_FAILURE',
+        payload: { data },
+    };
+}
+
+export function deleteDeliveryRequest(data) {
+    return {
+        type: '@delivery/DELETE_DELIVERY_REQUEST',
+        payload: { data },
+    };
+}
+
+export function deleteDeliverySuccess(data) {
+    return {
+        type: '@delivery/DELETE_DELIVERY_SUCCESS',
+        payload: { data },
+    };
+}
+
+export function deleteDeliveryFailure(data) {
+    return {
+        type: '@delivery/DELETE_DELIVERY_FAILURE',
         payload: { data },
     };
 }

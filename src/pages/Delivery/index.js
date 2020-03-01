@@ -5,10 +5,12 @@ import Grid from '@/components/Grid';
 import ContentHeader from '@/components/ContentHeader';
 import TransitionsModal from '@/components/TransitionsModal';
 
+import { useDispatch } from 'react-redux';
+import { deleteDeliveryRequest } from '@/store/modules/delivery/actions';
+
 import AddIcon from '@/assets/add.svg';
 import CreateIcon from '@/assets/create.svg';
 import DeleteIcon from '@/assets/delete.svg';
-import SearchIcon from '@/assets/search.svg';
 import ViewIcon from '@/assets/visibility.svg';
 
 import { Container } from './styles';
@@ -30,16 +32,27 @@ export default function Delivery(props) {
         {
             text: 'Excluir',
             icon: DeleteIcon,
-            action: () => console.log('Action de excluir'),
+            action: data => handleDelete(data),
         },
     ];
+
+    const dispatch = useDispatch();
+
+    async function handleDelete(data) {
+        const confirmed = window.confirm(
+            'Você está prestes a excluir uma encomenda. Deseja continuar?'
+        );
+        if (confirmed == true) {
+            await dispatch(deleteDeliveryRequest(data.id));
+            loadDeliveries();
+        }
+    }
 
     const [open, setOpen] = useState(false);
     const [modalData, setModalData] = useState({});
 
     const handleOpen = data => {
         setOpen(true);
-        console.log(data);
         setModalData(data);
     };
 
