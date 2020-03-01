@@ -27,14 +27,16 @@ export default function RegisterRecipient() {
     return (
         <Container>
             <ContentHeader title="Cadastro de destinatário">
-                <button type="button">
-                    <img src={arrowLeftIcon} alt="Ícone de voltar" />
-                    Voltar
-                </button>
-                <button className="primary" type="button">
-                    <img src={doneIcon} alt="Ícone de finalizado" />
-                    Salvar
-                </button>
+                <div className="button-group">
+                    <button type="button">
+                        <img src={arrowLeftIcon} alt="Ícone de voltar" />
+                        Voltar
+                    </button>
+                    <button className="primary" type="button">
+                        <img src={doneIcon} alt="Ícone de finalizado" />
+                        Salvar
+                    </button>
+                </div>
             </ContentHeader>
             <RegisterWrapper>
                 <Form schema={schema} onSubmit={handleSubmit}>

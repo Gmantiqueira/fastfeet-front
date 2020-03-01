@@ -23,7 +23,7 @@ export default function ContentHeader({ title, placeholder, children }) {
                             />
                         </div>
                     )}
-                    <div className="button-group">{children}</div>
+                    {children}
                 </div>
             </div>
         </Wrapper>

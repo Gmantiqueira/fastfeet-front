@@ -24,6 +24,7 @@ export default function Grid({ settings, data, actions, actionsWidth }) {
             {data.map(row => {
                 return (
                     <GridRow
+                        key={row.id}
                         settings={settings}
                         data={row}
                         actions={actions}

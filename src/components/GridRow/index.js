@@ -13,7 +13,11 @@ const Content = function Content({
 }) {
     if (field === 'actions') {
         return actions ? (
-            <Actions actions={actions} width={actionsWidth} />
+            <Actions
+                contentData={contentData}
+                actions={actions}
+                width={actionsWidth}
+            />
         ) : (
             <span>N/A</span>
         );

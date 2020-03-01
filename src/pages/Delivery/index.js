@@ -78,7 +78,9 @@ export default function Delivery(props) {
         {
             text: 'Editar',
             icon: CreateIcon,
-            action: () => console.log('Action de editar'),
+            action: data => {
+                props.history.push('/register/delivery', data);
+            },
         },
         {
             text: 'Excluir',
@@ -97,14 +99,16 @@ export default function Delivery(props) {
                 title="Gerenciando encomendas"
                 placeholder="Buscar por encomendas"
             >
-                <button
-                    onClick={handleRegisterLink}
-                    className="primary"
-                    type="button"
-                >
-                    <img src={AddIcon} alt="Ícone de adicionar" />
-                    Cadastrar
-                </button>
+                <div className="button-group">
+                    <button
+                        onClick={handleRegisterLink}
+                        className="primary"
+                        type="button"
+                    >
+                        <img src={AddIcon} alt="Ícone de adicionar" />
+                        Cadastrar
+                    </button>
+                </div>
             </ContentHeader>
             <Grid settings={gridSettings} data={data} actions={actions} />
         </Container>

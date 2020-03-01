@@ -1,12 +1,15 @@
 import React from 'react';
 import * as Yup from 'yup';
-import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
 
 import arrowLeftIcon from '@/assets/arrow_left.svg';
 import doneIcon from '@/assets/done.svg';
 
-import { RegisterDeliveryRequest, registerDeliveryRequest } from '@/store/modules/delivery/actions'
+import {
+    RegisterDeliveryRequest,
+    registerDeliveryRequest,
+} from '@/store/modules/delivery/actions';
 
 import RegisterWrapper from '@/components/RegisterWrapper';
 import ContentHeader from '@/components/ContentHeader';
@@ -25,17 +28,32 @@ export default function RegisterDelivery(props) {
         dispatch(registerDeliveryRequest(data));
     }
 
+    const editingParams = props.location.state;
+    console.log(editingParams);
+
     return (
         <Container>
-            <ContentHeader title="Cadastro de encomenda">
-                <button type="button">
-                    <img src={arrowLeftIcon} alt="Ícone de voltar" onClick={props.history.goBack}/>
-                    Voltar
-                </button>
-                <button className="primary" type="submit" form="form">
-                    <img src={doneIcon} alt="Ícone de finalizado" />
-                    Salvar
-                </button>
+            <ContentHeader
+                title={
+                    editingParams
+                        ? 'Edição de encomendas'
+                        : 'Cadastro de encomendas'
+                }
+            >
+                <div className="button-group">
+                    <button type="button">
+                        <img
+                            src={arrowLeftIcon}
+                            alt="Ícone de voltar"
+                            onClick={props.history.goBack}
+                        />
+                        Voltar
+                    </button>
+                    <button className="primary" type="submit" form="form">
+                        <img src={doneIcon} alt="Ícone de finalizado" />
+                        Salvar
+                    </button>
+                </div>
             </ContentHeader>
             <RegisterWrapper>
                 <Form id="form" schema={schema} onSubmit={handleSubmit}>

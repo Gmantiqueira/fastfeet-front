@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Button, Menu, Option } from './styles';
 
-export default function Actions({ actions, width }) {
+export default function Actions({ contentData, actions, width }) {
     const [visible, setVisibility] = useState(false);
 
     useEffect(() => {
@@ -11,14 +11,16 @@ export default function Actions({ actions, width }) {
     }, [visible]);
 
     const handleClickOutside = e => {
-        const isClickInside = document
-            .getElementById('menu-button')
-            .contains(e.target);
+        if (document.getElementById('menu-button')) {
+            const isClickInside = document
+                .getElementById('menu-button')
+                .contains(e.target);
 
-        if (!isClickInside) {
-            setVisibility(false);
+            if (!isClickInside) {
+                setVisibility(false);
+            }
+            document.removeEventListener('click', handleClickOutside);
         }
-        document.removeEventListener('click', handleClickOutside);
     };
 
     return (
@@ -33,7 +35,10 @@ export default function Actions({ actions, width }) {
             <Menu width={width} isVisible={visible}>
                 {actions.map(option => {
                     return (
-                        <Option key={option.text} onClick={option.action}>
+                        <Option
+                            key={option.text}
+                            onClick={() => option.action(contentData)}
+                        >
                             <img src={option.icon} alt={option.text} />
                             {option.text}
                         </Option>
