@@ -58,12 +58,16 @@ export const Option = styled.div`
     display: flex;
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
+    font-weight: normal;
     letter-spacing: 0;
     line-height: 20px;
     padding: 5px 0;
-    font-weight: normal;
+    transition: color ease 0.2s;
     &:last-child {
         border: 0;
+    }
+    &:hover {
+        color: #444;
     }
     img {
         margin-right: 8px;
