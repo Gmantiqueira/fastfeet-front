@@ -3,6 +3,7 @@ import api from '@/services/api';
 
 import Grid from '@/components/Grid';
 import ContentHeader from '@/components/ContentHeader';
+import TransitionsModal from '@/components/TransitionsModal';
 
 import AddIcon from '@/assets/add.svg';
 import CreateIcon from '@/assets/create.svg';
@@ -13,49 +14,11 @@ import ViewIcon from '@/assets/visibility.svg';
 import { Container } from './styles';
 
 export default function Delivery(props) {
-    const gridSettings = [
-        {
-            title: 'ID',
-            key: 'id',
-            widthProportion: 1.1,
-        },
-        {
-            title: 'Destinatário',
-            key: 'recipient',
-            widthProportion: 1,
-        },
-        {
-            title: 'Entregador',
-            key: 'deliveryman',
-            widthProportion: 1,
-        },
-        {
-            title: 'Cidade',
-            key: 'city',
-            widthProportion: 1,
-        },
-        {
-            title: 'Estado',
-            key: 'state',
-            widthProportion: 1,
-        },
-        {
-            title: 'Status',
-            key: 'status',
-            widthProportion: 1,
-        },
-        {
-            title: 'Ações',
-            key: 'actions',
-            widthProportion: 1.1,
-        },
-    ];
-
     const actions = [
         {
             text: 'Visualizar',
             icon: ViewIcon,
-            action: () => console.log('Action de visualizar'),
+            action: data => handleOpen(data),
         },
         {
             text: 'Editar',
@@ -70,6 +33,19 @@ export default function Delivery(props) {
             action: () => console.log('Action de excluir'),
         },
     ];
+
+    const [open, setOpen] = useState(false);
+    const [modalData, setModalData] = useState({});
+
+    const handleOpen = data => {
+        setOpen(true);
+        console.log(data);
+        setModalData(data);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     const [deliveries, setDeliveries] = useState([]);
 
@@ -115,6 +91,49 @@ export default function Delivery(props) {
                 </div>
             </ContentHeader>
             <Grid settings={gridSettings} data={deliveries} actions={actions} />
+            <TransitionsModal
+                open={open}
+                data={modalData}
+                handleClose={handleClose}
+            />
         </Container>
     );
 }
+
+const gridSettings = [
+    {
+        title: 'ID',
+        key: 'id',
+        widthProportion: 1.1,
+    },
+    {
+        title: 'Destinatário',
+        key: 'recipient',
+        widthProportion: 1,
+    },
+    {
+        title: 'Entregador',
+        key: 'deliveryman',
+        widthProportion: 1,
+    },
+    {
+        title: 'Cidade',
+        key: 'city',
+        widthProportion: 1,
+    },
+    {
+        title: 'Estado',
+        key: 'state',
+        widthProportion: 1,
+    },
+    {
+        title: 'Status',
+        key: 'status',
+        widthProportion: 1,
+    },
+    {
+        title: 'Ações',
+        key: 'actions',
+        widthProportion: 1.1,
+    },
+];
