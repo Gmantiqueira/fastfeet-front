@@ -1,9 +1,16 @@
 import React from 'react';
 import * as Yup from 'yup';
+import { useDispatch } from 'react-redux';
+
 import { Form, Input } from '@rocketseat/unform';
 
 import arrowLeftIcon from '@/assets/arrow_left.svg';
 import doneIcon from '@/assets/done.svg';
+
+import {
+    registerRecipientRequest,
+    updateRecipientRequest,
+} from '@/store/modules/recipient/actions';
 
 import RegisterWrapper from '@/components/RegisterWrapper';
 import ContentHeader from '@/components/ContentHeader';
@@ -19,27 +26,45 @@ const schema = Yup.object().shape({
     zip_code: Yup.string().required('O CEP é obrigatório'),
 });
 
-export default function RegisterRecipient() {
+export default function RegisterRecipient(props) {
+    const dispatch = useDispatch();
+    const editingParams = props.location.state;
+
     function handleSubmit(data) {
-        console.log(data);
+        editingParams
+            ? dispatch(updateRecipientRequest(data))
+            : dispatch(registerRecipientRequest(data));
     }
+
+    const initialData = editingParams;
 
     return (
         <Container>
             <ContentHeader title="Cadastro de destinatário">
                 <div className="button-group">
-                    <button type="button">
+                    <button
+                        type="button"
+                        onClick={() => {
+                            props.history.goBack();
+                        }}
+                    >
                         <img src={arrowLeftIcon} alt="Ícone de voltar" />
                         Voltar
                     </button>
-                    <button className="primary" type="button">
+                    <button className="primary" type="submit" form="form">
                         <img src={doneIcon} alt="Ícone de finalizado" />
                         Salvar
                     </button>
                 </div>
             </ContentHeader>
             <RegisterWrapper>
-                <Form schema={schema} onSubmit={handleSubmit}>
+                <Form
+                    id="form"
+                    name="form"
+                    schema={schema}
+                    onSubmit={handleSubmit}
+                    initialData={initialData}
+                >
                     <div className="row">
                         <div className="field">
                             <label htmlFor="name">Nome</label>
@@ -86,21 +111,21 @@ export default function RegisterRecipient() {
                             />
                         </div>
                         <div className="field">
-                            <label htmlFor="state">Cidade</label>
-                            <Input
-                                id="state"
-                                name="state"
-                                type="text"
-                                placeholder="Diadema"
-                            />
-                        </div>
-                        <div className="field">
-                            <label htmlFor="state">Nome</label>
+                            <label htmlFor="state">Estado</label>
                             <Input
                                 id="state"
                                 name="state"
                                 type="text"
                                 placeholder="São Paulo"
+                            />
+                        </div>
+                        <div className="field">
+                            <label htmlFor="zip_code">CEP</label>
+                            <Input
+                                id="zip_code"
+                                name="zip_code"
+                                type="text"
+                                placeholder="12345-678"
                             />
                         </div>
                     </div>
