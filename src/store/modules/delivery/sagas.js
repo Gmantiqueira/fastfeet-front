@@ -9,6 +9,8 @@ import {
     registerDeliveryFailure,
     deleteDeliverySuccess,
     deleteDeliveryFailure,
+    updateDeliverySuccess,
+    updateDeliveryFailure,
 } from './actions';
 
 export function* registerDelivery({ payload }) {
@@ -47,7 +49,25 @@ export function* deleteDelivery({ payload }) {
     }
 }
 
+export function* updateDelivery({ payload }) {
+    try {
+        const { data } = payload;
+
+        yield call(api.put, `delivery/${data.delivery_id}`, data);
+
+        toast.success('Encomenda atualizada com sucesso!');
+
+        history.push('/delivery');
+
+        yield put(updateDeliverySuccess());
+    } catch (err) {
+        toast.error('Erro ao editar encomenda, tente novamente!');
+        yield put(updateDeliveryFailure());
+    }
+}
+
 export default all([
     takeLatest('@delivery/REGISTER_DELIVERY_REQUEST', registerDelivery),
     takeLatest('@delivery/DELETE_DELIVERY_REQUEST', deleteDelivery),
+    takeLatest('@delivery/UPDATE_DELIVERY_REQUEST', updateDelivery),
 ]);

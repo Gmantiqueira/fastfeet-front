@@ -9,6 +9,7 @@ export default function UnformSelect({
     label,
     loadOptions,
     placeholder,
+    value,
 }) {
     const ref = useRef(null);
     const { fieldName, registerField, defaultValue, error } = useField(name);
@@ -46,9 +47,10 @@ export default function UnformSelect({
                 selected={selectedOption}
                 defaultOptions
                 onChange={option => {
-                    setSelectedOption(option.value);
+                    setSelectedOption(option);
                 }}
                 ref={ref}
+                defaultValue={defaultValue}
             />
             {error && <span>{error}</span>}
         </>

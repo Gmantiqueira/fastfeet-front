@@ -78,14 +78,16 @@ export default function Deliveryman(props) {
                 title="Gerenciando entregadores"
                 placeholder="Buscar por entregadores"
             >
-                <button
-                    onClick={handleRegisterLink}
-                    className="primary"
-                    type="button"
-                >
-                    <img src={AddIcon} alt="Ícone de adicionar" />
-                    Cadastrar
-                </button>
+                <div className="button-group">
+                    <button
+                        onClick={handleRegisterLink}
+                        className="primary"
+                        type="button"
+                    >
+                        <img src={AddIcon} alt="Ícone de adicionar" />
+                        Cadastrar
+                    </button>
+                </div>
             </ContentHeader>
             <Grid settings={gridSettings} data={data} actions={actions} />
         </Container>

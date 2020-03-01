@@ -71,14 +71,16 @@ export default function Delivery(props) {
                 title="Gerenciando destinatários"
                 placeholder="Buscar por destinatários"
             >
-                <button
-                    onClick={handleRegisterLink}
-                    className="primary"
-                    type="button"
-                >
-                    <img src={AddIcon} alt="Ícone de adicionar" />
-                    Cadastrar
-                </button>
+                <div className="button-group">
+                    <button
+                        onClick={handleRegisterLink}
+                        className="primary"
+                        type="button"
+                    >
+                        <img src={AddIcon} alt="Ícone de adicionar" />
+                        Cadastrar
+                    </button>
+                </div>
             </ContentHeader>
             <Grid settings={gridSettings} data={data} actions={actions} />
         </Container>

@@ -9,7 +9,10 @@ import UnformSelect from '@/components/UnformSelect';
 import arrowLeftIcon from '@/assets/arrow_left.svg';
 import doneIcon from '@/assets/done.svg';
 
-import { registerDeliveryRequest } from '@/store/modules/delivery/actions';
+import {
+    registerDeliveryRequest,
+    updateDeliveryRequest,
+} from '@/store/modules/delivery/actions';
 
 import RegisterWrapper from '@/components/RegisterWrapper';
 import ContentHeader from '@/components/ContentHeader';
@@ -17,19 +20,32 @@ import ContentHeader from '@/components/ContentHeader';
 import { Container } from './styles';
 
 const schema = Yup.object().shape({
-    recipient_id: Yup.number().required('O destinatário é obrigatório'),
-    deliveryman_id: Yup.number().required('O entregador é obrigatório'),
+    recipient_id: Yup.object({
+        label: Yup.string(),
+        value: Yup.number(),
+    }).required('O destinatário é obrigatório'),
+    deliveryman_id: Yup.object({
+        label: Yup.string(),
+        value: Yup.number(),
+    }).required('O entregador é obrigatório'),
     product: Yup.string().required('O nome do produto é obrigatório'),
 });
 
 export default function RegisterDelivery(props) {
     const dispatch = useDispatch();
+    const editingParams = props.location.state;
 
     function handleSubmit(data) {
-        dispatch(registerDeliveryRequest(data));
+        const params = {
+            ...data,
+            deliveryman_id: data.deliveryman_id.value,
+            recipient_id: data.recipient_id.value,
+            delivery_id: editingParams.id,
+        };
+        editingParams
+            ? dispatch(updateDeliveryRequest(params))
+            : dispatch(registerDeliveryRequest(params));
     }
-
-    const editingParams = props.location.state;
 
     async function loadRecipients(input) {
         const response = await api.get('recipients', {
@@ -63,6 +79,22 @@ export default function RegisterDelivery(props) {
         return options;
     }
 
+    const initialData = {
+        deliveryman_id: editingParams
+            ? {
+                  label: editingParams.deliveryman.name,
+                  value: editingParams.deliveryman.id,
+              }
+            : null,
+        recipient_id: editingParams
+            ? {
+                  label: editingParams.recipient.name,
+                  value: editingParams.recipient.id,
+              }
+            : null,
+        product: editingParams ? editingParams.product : null,
+    };
+
     return (
         <Container>
             <ContentHeader
@@ -92,8 +124,8 @@ export default function RegisterDelivery(props) {
                 <Form
                     id="form"
                     schema={schema}
-                    initialData={editingParams}
                     onSubmit={handleSubmit}
+                    initialData={initialData}
                 >
                     <div className="row">
                         <div className="field">
@@ -102,6 +134,7 @@ export default function RegisterDelivery(props) {
                                 label="Destinatário"
                                 loadOptions={loadRecipients}
                                 placeholder="Ludwig van Beethoven"
+                                defaultValue={initialData.recipient_id}
                             />
                         </div>
                         <div className="field">
@@ -110,6 +143,7 @@ export default function RegisterDelivery(props) {
                                 label="Entregador"
                                 loadOptions={loadDeliveryman}
                                 placeholder="John Doe"
+                                defaultValue={initialData.deliveryman_id}
                             />
                         </div>
                     </div>
