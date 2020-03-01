@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 import api from '@/services/api';
 
 import { Form, Input } from '@rocketseat/unform';
-import AsyncSelect from 'react-select/async';
+import UnformSelect from '@/components/UnformSelect';
 
 import arrowLeftIcon from '@/assets/arrow_left.svg';
 import doneIcon from '@/assets/done.svg';
@@ -17,26 +17,19 @@ import ContentHeader from '@/components/ContentHeader';
 import { Container } from './styles';
 
 const schema = Yup.object().shape({
-    recipient_id: Yup.string().required('O nome é obrigatório'),
-    deliveryman_id: Yup.string().required('A rua é obrigatória'),
-    product: Yup.string().required('O número é obrigatório'),
+    recipient_id: Yup.number().required('O destinatário é obrigatório'),
+    deliveryman_id: Yup.number().required('O entregador é obrigatório'),
+    product: Yup.string().required('O nome do produto é obrigatório'),
 });
 
 export default function RegisterDelivery(props) {
     const dispatch = useDispatch();
+
     function handleSubmit(data) {
         dispatch(registerDeliveryRequest(data));
     }
 
     const editingParams = props.location.state;
-
-    const selectStyles = {
-        control: styles => ({
-            ...styles,
-            height: '45px;',
-            minHeight: 'fit-content',
-        }),
-    };
 
     async function loadRecipients(input) {
         const response = await api.get('recipients', {
@@ -45,9 +38,9 @@ export default function RegisterDelivery(props) {
 
         const options = [];
 
-        response.data.forEach(({ name, ...rest }) => {
+        response.data.forEach(({ name, id, ...rest }) => {
             if (name.toLowerCase().includes(input.toLowerCase())) {
-                options.push({ ...rest, label: name });
+                options.push({ ...rest, label: name, value: id });
             }
         });
 
@@ -61,9 +54,9 @@ export default function RegisterDelivery(props) {
 
         const options = [];
 
-        response.data.forEach(({ name, ...rest }) => {
+        response.data.forEach(({ name, id, ...rest }) => {
             if (name.toLowerCase().includes(input.toLowerCase())) {
-                options.push({ ...rest, label: name });
+                options.push({ ...rest, label: name, value: id });
             }
         });
 
@@ -95,41 +88,38 @@ export default function RegisterDelivery(props) {
                 </div>
             </ContentHeader>
             <RegisterWrapper>
-                <Form id="form" schema={schema} onSubmit={handleSubmit}>
+                <Form
+                    id="form"
+                    schema={schema}
+                    initialData={editingParams}
+                    onSubmit={handleSubmit}
+                >
                     <div className="row">
                         <div className="field">
-                            <label htmlFor="name">Destinatário</label>
-                            <AsyncSelect
-                                id="recipient_id"
+                            <UnformSelect
                                 name="recipient_id"
-                                cacheOptions
+                                label="Destinatário"
                                 loadOptions={loadRecipients}
-                                defaultOptions
                                 placeholder="Ludwig van Beethoven"
-                                styles={selectStyles}
                             />
                         </div>
                         <div className="field">
-                            <label htmlFor="name">Entregador</label>
-                            <AsyncSelect
-                                id="deliveryman_id"
+                            <UnformSelect
                                 name="deliveryman_id"
-                                cacheOptions
+                                label="Entregador"
                                 loadOptions={loadDeliveryman}
-                                defaultOptions
                                 placeholder="John Doe"
-                                styles={selectStyles}
                             />
                         </div>
                     </div>
                     <div className="row">
                         <div className="field">
-                            <label htmlFor="street">Nome do produto</label>
                             <Input
                                 id="product"
                                 name="product"
                                 type="text"
                                 placeholder="Rua Beethoven"
+                                label="Nome do produto"
                             />
                         </div>
                     </div>

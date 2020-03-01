@@ -60,7 +60,7 @@ export default function Delivery(props) {
             status: 'Entregue',
         },
         {
-            id: 0,
+            id: 1,
             recipient: 'Ludwig van Beethoven',
             deliveryman: 'Gabriel Antiqueira',
             city: 'Bauru',
