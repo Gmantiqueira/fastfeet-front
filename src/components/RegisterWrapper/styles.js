@@ -25,13 +25,13 @@ export const Wrapper = styled.div`
             &.sm {
                 max-width: 150px;
             }
-            label {
+            /* label {
                 color: #444;
                 font-size: 14px;
                 font-weight: bold;
                 line-height: 19px;
-            }
-            input {
+            } */
+            > input {
                 border: 1px solid #ddd;
                 border-radius: 4px;
                 color: #666;

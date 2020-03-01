@@ -13,7 +13,7 @@ export default function ContentHeader({ title, placeholder, children }) {
                 <h1>{title}</h1>
 
                 <div className="controls">
-                    {placeholder && (
+                    {!!placeholder.length && (
                         <div className="input-container">
                             <img src={SearchIcon} alt="Ícone de pesquisa" />
                             <input
@@ -38,5 +38,5 @@ ContentHeader.propTypes = {
 
 ContentHeader.defaultProps = {
     title: 'Título da página',
-    placeholder: false,
+    placeholder: '',
 };

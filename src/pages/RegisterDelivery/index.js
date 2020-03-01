@@ -1,15 +1,15 @@
 import React from 'react';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
+import api from '@/services/api';
+
 import { Form, Input } from '@rocketseat/unform';
+import AsyncSelect from 'react-select/async';
 
 import arrowLeftIcon from '@/assets/arrow_left.svg';
 import doneIcon from '@/assets/done.svg';
 
-import {
-    RegisterDeliveryRequest,
-    registerDeliveryRequest,
-} from '@/store/modules/delivery/actions';
+import { registerDeliveryRequest } from '@/store/modules/delivery/actions';
 
 import RegisterWrapper from '@/components/RegisterWrapper';
 import ContentHeader from '@/components/ContentHeader';
@@ -29,7 +29,46 @@ export default function RegisterDelivery(props) {
     }
 
     const editingParams = props.location.state;
-    console.log(editingParams);
+
+    const selectStyles = {
+        control: styles => ({
+            ...styles,
+            height: '45px;',
+            minHeight: 'fit-content',
+        }),
+    };
+
+    async function loadRecipients(input) {
+        const response = await api.get('recipients', {
+            params: { page: 1 },
+        });
+
+        const options = [];
+
+        response.data.forEach(({ name, ...rest }) => {
+            if (name.toLowerCase().includes(input.toLowerCase())) {
+                options.push({ ...rest, label: name });
+            }
+        });
+
+        return options;
+    }
+
+    async function loadDeliveryman(input) {
+        const response = await api.get('deliveryman', {
+            params: { page: 1 },
+        });
+
+        const options = [];
+
+        response.data.forEach(({ name, ...rest }) => {
+            if (name.toLowerCase().includes(input.toLowerCase())) {
+                options.push({ ...rest, label: name });
+            }
+        });
+
+        return options;
+    }
 
     return (
         <Container>
@@ -60,20 +99,26 @@ export default function RegisterDelivery(props) {
                     <div className="row">
                         <div className="field">
                             <label htmlFor="name">Destinatário</label>
-                            <Input
+                            <AsyncSelect
                                 id="recipient_id"
                                 name="recipient_id"
-                                type="text"
+                                cacheOptions
+                                loadOptions={loadRecipients}
+                                defaultOptions
                                 placeholder="Ludwig van Beethoven"
+                                styles={selectStyles}
                             />
                         </div>
                         <div className="field">
                             <label htmlFor="name">Entregador</label>
-                            <Input
+                            <AsyncSelect
                                 id="deliveryman_id"
                                 name="deliveryman_id"
-                                type="text"
-                                placeholder="Ludwig van Beethoven"
+                                cacheOptions
+                                loadOptions={loadDeliveryman}
+                                defaultOptions
+                                placeholder="John Doe"
+                                styles={selectStyles}
                             />
                         </div>
                     </div>
