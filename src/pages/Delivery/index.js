@@ -38,18 +38,18 @@ export default function Delivery(props) {
 
     const dispatch = useDispatch();
 
-    async function handleDelete(data) {
+    function handleDelete(data) {
         const confirmed = window.confirm(
             'Você está prestes a excluir uma encomenda. Deseja continuar?'
         );
         if (confirmed == true) {
-            await dispatch(deleteDeliveryRequest(data.id));
+            dispatch(deleteDeliveryRequest(data.id));
             loadDeliveries();
         }
     }
 
     const [open, setOpen] = useState(false);
-    const [modalData, setModalData] = useState({});
+    const [modalData, setModalData] = useState(null);
 
     const handleOpen = data => {
         setOpen(true);

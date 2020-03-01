@@ -4,6 +4,7 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import { Content } from './styles';
+import { format } from 'date-fns';
 
 const useStyles = makeStyles(theme =>
     createStyles({
@@ -33,22 +34,42 @@ export default function TransitionsModal({ open, data, handleClose }) {
                 }}
             >
                 <Fade in={open}>
-                    <Content>
-                        <p>Informações da encomenda</p>
-                        <h4>Rua Beethoven, 1729</h4>
-                        <h4>Diadema - SP</h4>
-                        <h4>09960-580</h4>
-                        <hr />
-                        <p>Datas</p>
-                        <h4>
-                            <b>Retirada:</b> 25/01/2020
-                        </h4>
-                        <h4>
-                            <b>Entrega:</b> 25/01/2020
-                        </h4>
-                        <hr />
-                        <p>Assinatura do destinatário</p>
-                    </Content>
+                    {data && (
+                        <Content>
+                            <p>Informações da encomenda</p>
+                            <h4>{`${data.recipient.street}, ${data.recipient.number}`}</h4>
+                            <h4>{`${data.recipient.city} - ${data.recipient.state}`}</h4>
+                            <h4>{data.recipient.zip_code}</h4>
+                            <hr />
+                            <p>Datas</p>
+                            <h4>
+                                <b>Retirada:</b>{' '}
+                                {data.start_date
+                                    ? format(
+                                          new Date(data.start_date),
+                                          'dd/MM/yyyy'
+                                      )
+                                    : 'N/A'}
+                            </h4>
+                            <h4>
+                                <b>Entrega:</b>{' '}
+                                {data.end_date
+                                    ? format(
+                                          new Date(data.end_date),
+                                          'dd/MM/yyyy'
+                                      )
+                                    : 'N/A'}
+                            </h4>
+                            <hr />
+                            <p>Assinatura do destinatário</p>
+                            {data.signature && (
+                                <img
+                                    src={data.signature.url}
+                                    alt="Assinatura da encomenda"
+                                />
+                            )}
+                        </Content>
+                    )}
                 </Fade>
             </Modal>
         </div>
