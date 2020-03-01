@@ -23,9 +23,19 @@ const Content = function Content({
         );
     }
     if (field === 'status') {
+        let type = 'pendente';
+        if (contentData.start_date) {
+            type = 'retirada';
+        }
+        if (contentData.signature) {
+            type = 'entregue';
+        }
+        if (contentData.canceled_at) {
+            type = 'cancelada';
+        }
         return (
-            <Status type={contentData.status}>
-                <span>{contentData.status}</span>
+            <Status type={type}>
+                <span>{type}</span>
             </Status>
         );
     }
@@ -35,6 +45,13 @@ const Content = function Content({
         ) : (
             <span>{`#${contentData[field]}`}</span>
         );
+    }
+    if (
+        contentData[field] &&
+        typeof contentData[field] === 'object' &&
+        contentData[field] !== null
+    ) {
+        return <span>{contentData[field].name}</span>;
     }
     return <span>{contentData[field]}</span>;
 };

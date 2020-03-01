@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import api from '@/services/api';
 
 import Grid from '@/components/Grid';
 import ContentHeader from '@/components/ContentHeader';
@@ -50,25 +51,6 @@ export default function Delivery(props) {
         },
     ];
 
-    const data = [
-        {
-            id: 0,
-            recipient: 'Ludwig van Beethoven',
-            deliveryman: 'Gabriel Antiqueira',
-            city: 'Bauru',
-            state: 'São Paulo',
-            status: 'Entregue',
-        },
-        {
-            id: 1,
-            recipient: 'Ludwig van Beethoven',
-            deliveryman: 'Gabriel Antiqueira',
-            city: 'Bauru',
-            state: 'São Paulo',
-            status: 'Cancelada',
-        },
-    ];
-
     const actions = [
         {
             text: 'Visualizar',
@@ -89,9 +71,29 @@ export default function Delivery(props) {
         },
     ];
 
-    function handleRegisterLink() {
-        props.history.push('/register/delivery');
+    const [deliveries, setDeliveries] = useState([]);
+
+    async function loadDeliveries() {
+        const { data } = await api.get('delivery', {
+            params: { page: 1 },
+        });
+
+        const deliveries = [];
+
+        data.forEach(delivery => {
+            deliveries.push({
+                ...delivery,
+                city: delivery.recipient.city,
+                state: delivery.recipient.state,
+            });
+        });
+
+        setDeliveries(deliveries);
     }
+
+    useEffect(() => {
+        loadDeliveries();
+    }, []);
 
     return (
         <Container>
@@ -101,7 +103,9 @@ export default function Delivery(props) {
             >
                 <div className="button-group">
                     <button
-                        onClick={handleRegisterLink}
+                        onClick={() => {
+                            props.history.push('/register/delivery');
+                        }}
                         className="primary"
                         type="button"
                     >
@@ -110,7 +114,7 @@ export default function Delivery(props) {
                     </button>
                 </div>
             </ContentHeader>
-            <Grid settings={gridSettings} data={data} actions={actions} />
+            <Grid settings={gridSettings} data={deliveries} actions={actions} />
         </Container>
     );
 }

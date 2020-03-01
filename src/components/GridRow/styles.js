@@ -26,26 +26,29 @@ export const Column = styled.div`
 const statusColor = type => {
     let lightColor;
     let darkColor;
-    switch (type.toLowerCase()) {
-        case 'entregue':
-            lightColor = '#dff0df';
-            darkColor = '#2ca42b';
-            break;
-        case 'pendente':
-            lightColor = '#F0F0DF';
-            darkColor = '#C1BC35';
-            break;
-        case 'retirada':
-            lightColor = '#BAD2FF';
-            darkColor = '#4D85EE';
-            break;
-        case 'cancelada':
-            lightColor = '#FAB0B0';
-            darkColor = '#DE3B3B';
-            break;
-        default:
-            break;
+    if (type) {
+        switch (type.toLowerCase()) {
+            case 'entregue':
+                lightColor = '#dff0df';
+                darkColor = '#2ca42b';
+                break;
+            case 'pendente':
+                lightColor = '#F0F0DF';
+                darkColor = '#C1BC35';
+                break;
+            case 'retirada':
+                lightColor = '#BAD2FF';
+                darkColor = '#4D85EE';
+                break;
+            case 'cancelada':
+                lightColor = '#FAB0B0';
+                darkColor = '#DE3B3B';
+                break;
+            default:
+                break;
+        }
     }
+
     return {
         lightColor,
         darkColor,

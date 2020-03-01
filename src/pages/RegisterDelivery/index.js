@@ -73,12 +73,13 @@ export default function RegisterDelivery(props) {
                 }
             >
                 <div className="button-group">
-                    <button type="button">
-                        <img
-                            src={arrowLeftIcon}
-                            alt="Ícone de voltar"
-                            onClick={props.history.goBack}
-                        />
+                    <button
+                        type="button"
+                        onClick={() => {
+                            props.history.goBack();
+                        }}
+                    >
+                        <img src={arrowLeftIcon} alt="Ícone de voltar" />
                         Voltar
                     </button>
                     <button className="primary" type="submit" form="form">
