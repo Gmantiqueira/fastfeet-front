@@ -29,7 +29,7 @@ export default function Recipient(props) {
     }
 
     async function loadRecipients() {
-        const { data } = await api.get('recipients', {
+        const { data } = await api.get('recipient', {
             params: { page: 1 },
         });
 
