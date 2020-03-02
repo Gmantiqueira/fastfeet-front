@@ -48,7 +48,7 @@ export default function RegisterDelivery(props) {
     }
 
     async function loadRecipients(input) {
-        const response = await api.get('recipients', {
+        const response = await api.get('recipient', {
             params: { page: 1 },
         });
 
