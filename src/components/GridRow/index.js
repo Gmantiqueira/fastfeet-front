@@ -22,6 +22,7 @@ const Content = function Content({
             <span>N/A</span>
         );
     }
+
     if (field === 'status') {
         let type = 'pendente';
         if (contentData.start_date) {
@@ -39,6 +40,7 @@ const Content = function Content({
             </Status>
         );
     }
+
     if (field === 'id' || field === 'delivery_id') {
         return contentData[field] < 10 ? (
             <span>{`#0${contentData[field]}`}</span>
@@ -46,6 +48,18 @@ const Content = function Content({
             <span>{`#${contentData[field]}`}</span>
         );
     }
+
+    if (field === 'avatar') {
+        return (
+            <img
+                width="45"
+                height="45"
+                src={contentData[field].url}
+                alt="Avatar do usuário"
+            />
+        );
+    }
+
     if (
         contentData[field] &&
         typeof contentData[field] === 'object' &&

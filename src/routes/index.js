@@ -11,6 +11,7 @@ import Problems from '../pages/Problems';
 
 import RegisterDelivery from '../pages/RegisterDelivery';
 import RegisterRecipient from '../pages/RegisterRecipient';
+import RegisterDeliveryman from '../pages/RegisterDeliveryman';
 
 export default function Routes() {
     return (
@@ -32,6 +33,12 @@ export default function Routes() {
                 path="/register/recipient"
                 exact
                 component={RegisterRecipient}
+                isPrivate
+            />
+            <Route
+                path="/register/deliveryman"
+                exact
+                component={RegisterDeliveryman}
                 isPrivate
             />
         </Switch>

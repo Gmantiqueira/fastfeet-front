@@ -21,6 +21,12 @@ export const Column = styled.div`
     font-size: 16px;
     line-height: 19px;
     width: 100%;
+    img {
+        border-radius: 50%;
+        height: 35px;
+        object-fit: contain;
+        width: 35px;
+    }
 `;
 
 const statusColor = type => {
