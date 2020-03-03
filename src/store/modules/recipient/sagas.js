@@ -55,7 +55,7 @@ export function* updateRecipient({ payload }) {
     try {
         const { data } = payload;
 
-        yield call(api.put, `recipient/${data.recipient_id}`, data);
+        yield call(api.put, `recipient/${data.id}`, data);
 
         toast.success('Encomenda atualizada com sucesso!');
 

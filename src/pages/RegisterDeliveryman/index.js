@@ -14,21 +14,27 @@ import {
 
 import RegisterWrapper from '@/components/RegisterWrapper';
 import ContentHeader from '@/components/ContentHeader';
+import AvatarInput from './AvatarInput';
 import { Container } from './styles';
 
-const schema = Yup.object().shape({
-    name: Yup.string().required('O nome é obrigatório'),
-    email: Yup.string().required('O email é obrigatório'),
-});
+// const schema = Yup.object().shape({
+//     name: Yup.string().required('O nome é obrigatório'),
+//     email: Yup.string().required('O email é obrigatório'),
+//     avatar_id: Yup.string().required('O avatar é obrigatório'),
+// });
 
 export default function RegisterDeliveryman(props) {
     const dispatch = useDispatch();
     const editingParams = props.location.state;
 
     function handleSubmit(data) {
-        editingParams
-            ? dispatch(updateDeliverymanRequest(data))
-            : dispatch(registerDeliverymanRequest(data));
+        const params = data;
+        if (editingParams) {
+            params.id = editingParams.id;
+            dispatch(updateDeliverymanRequest(params));
+            return;
+        }
+        dispatch(registerDeliverymanRequest(data));
     }
 
     const initialData = editingParams;
@@ -56,10 +62,13 @@ export default function RegisterDeliveryman(props) {
                 <Form
                     id="form"
                     name="form"
-                    schema={schema}
+                    // schema={schema}
                     onSubmit={handleSubmit}
                     initialData={initialData}
                 >
+                    <div className="row">
+                        <AvatarInput name="avatar_id"/>
+                    </div>
                     <div className="row">
                         <div className="field">
                             <label htmlFor="name">Nome</label>

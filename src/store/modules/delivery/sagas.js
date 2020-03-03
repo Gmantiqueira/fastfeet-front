@@ -53,7 +53,7 @@ export function* updateDelivery({ payload }) {
     try {
         const { data } = payload;
 
-        yield call(api.put, `delivery/${data.delivery_id}`, data);
+        yield call(api.put, `delivery/${data.id}`, data);
 
         toast.success('Encomenda atualizada com sucesso!');
 

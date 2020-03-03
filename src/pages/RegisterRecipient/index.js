@@ -31,9 +31,13 @@ export default function RegisterRecipient(props) {
     const editingParams = props.location.state;
 
     function handleSubmit(data) {
-        editingParams
-            ? dispatch(updateRecipientRequest(data))
-            : dispatch(registerRecipientRequest(data));
+        const params = data;
+        if (editingParams) {
+            params.id = editingParams.id;
+            dispatch(updateRecipientRequest(data));
+            return;
+        }
+        dispatch(registerRecipientRequest(data));
     }
 
     const initialData = editingParams;

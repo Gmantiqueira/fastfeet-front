@@ -36,15 +36,21 @@ export default function RegisterDelivery(props) {
     const editingParams = props.location.state;
 
     function handleSubmit(data) {
+        console.log(data);
+        console.log(editingParams);
         const params = {
             ...data,
             deliveryman_id: data.deliveryman_id.value,
             recipient_id: data.recipient_id.value,
-            delivery_id: editingParams.id,
+            product: data.product,
         };
-        editingParams
-            ? dispatch(updateDeliveryRequest(params))
-            : dispatch(registerDeliveryRequest(params));
+
+        if (editingParams) {
+            params.id = editingParams.id;
+            dispatch(updateDeliveryRequest(params));
+            return;
+        }
+        dispatch(registerDeliveryRequest(params));
     }
 
     async function loadRecipients(input) {
