@@ -8,10 +8,7 @@ import TransitionsModal from '@/components/TransitionsModal';
 import { useDispatch } from 'react-redux';
 import { deleteDeliveryRequest } from '@/store/modules/delivery/actions';
 
-import AddIcon from '@/assets/add.svg';
-import CreateIcon from '@/assets/create.svg';
-import DeleteIcon from '@/assets/delete.svg';
-import ViewIcon from '@/assets/visibility.svg';
+import { Add, Create, Delete, RemoveRedEye } from '@material-ui/icons';
 
 import { Container } from './styles';
 
@@ -19,19 +16,19 @@ export default function Delivery(props) {
     const actions = [
         {
             text: 'Visualizar',
-            icon: ViewIcon,
+            icon: RemoveRedEye,
             action: data => handleOpen(data),
         },
         {
             text: 'Editar',
-            icon: CreateIcon,
+            icon: Create,
             action: data => {
                 props.history.push('/register/delivery', data);
             },
         },
         {
             text: 'Excluir',
-            icon: DeleteIcon,
+            icon: Delete,
             action: data => handleDelete(data),
         },
     ];
@@ -98,7 +95,7 @@ export default function Delivery(props) {
                         className="primary"
                         type="button"
                     >
-                        <img src={AddIcon} alt="Ícone de adicionar" />
+                        <Add />
                         Cadastrar
                     </button>
                 </div>

@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import GridRow from '@/components/GridRow';
 import { Wrapper, Column } from './styles';
 
-// import { Container } from './styles';
-
 export default function Grid({ settings, data, actions, actionsWidth }) {
     return (
         <Wrapper>
