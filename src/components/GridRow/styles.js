@@ -17,6 +17,8 @@ export const Wrapper = styled.div`
 `;
 
 export const Column = styled.div`
+    align-items: center;
+    display: flex;
     flex-shrink: ${props => props.width};
     font-size: 16px;
     line-height: 19px;
