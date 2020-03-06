@@ -9,7 +9,6 @@ export default function UnformSelect({
     label,
     loadOptions,
     placeholder,
-    value,
 }) {
     const ref = useRef(null);
     const { fieldName, registerField, defaultValue, error } = useField(name);

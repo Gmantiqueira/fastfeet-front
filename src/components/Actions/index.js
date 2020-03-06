@@ -39,7 +39,7 @@ export default function Actions({ contentData, actions, width }) {
                             key={option.text}
                             onClick={() => option.action(contentData)}
                         >
-                            <img src={option.icon} alt={option.text} />
+                            <option.icon />
                             {option.text}
                         </Option>
                     );

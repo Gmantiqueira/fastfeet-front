@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import AddIcon from '@/assets/add.svg';
-import SearchIcon from '@/assets/search.svg';
+import { Search } from '@material-ui/icons'
 
 import { Wrapper } from './styles';
 
@@ -15,7 +14,7 @@ export default function ContentHeader({ title, placeholder, children }) {
                 <div className="controls">
                     {!!placeholder.length && (
                         <div className="input-container">
-                            <img src={SearchIcon} alt="Ícone de pesquisa" />
+                            <Search/>
                             <input
                                 placeholder={placeholder}
                                 name="search"
