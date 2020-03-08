@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useField } from '@rocketseat/unform';
 import api from '@/services/api';
+import PropTypes from 'prop-types';
 
 import { Container } from './styles';
 
-export default function AvatarInput() {
+export default function AvatarInput({ username }) {
     const { defaultValue, registerField } = useField('avatar');
 
     const [file, setFile] = useState(defaultValue && defaultValue.id);
@@ -18,9 +19,9 @@ export default function AvatarInput() {
                 name: 'avatar_id',
                 ref: ref.current,
                 path: 'dataset.file',
-            })
+            });
         }
-    }, [ref, registerField])
+    }, [ref, registerField]);
 
     async function handleChange(e) {
         const data = new FormData();
@@ -38,7 +39,15 @@ export default function AvatarInput() {
     return (
         <Container>
             <label htmlFor="avatar">
-                <img src={preview || 'https://api.adorable.io/avatars/50/abott@adorable.png'} alt="Avatar do usuário" />
+                <img
+                    src={
+                        preview ||
+                        'https://ui-avatars.com/api/?name=' + username.length
+                            ? username.split(' ').join('+')
+                            : 'John Doe' + '&length=2&size=128&bold=true'
+                    }
+                    alt="Avatar do usuário"
+                />
 
                 <input
                     type="file"
@@ -52,3 +61,7 @@ export default function AvatarInput() {
         </Container>
     );
 }
+
+AvatarInput.propTypes = {
+    username: PropTypes.string.isRequired,
+};

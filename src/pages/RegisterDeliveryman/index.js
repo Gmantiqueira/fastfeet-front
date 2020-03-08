@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 
@@ -17,15 +17,15 @@ import ContentHeader from '@/components/ContentHeader';
 import AvatarInput from './AvatarInput';
 import { Container } from './styles';
 
-// const schema = Yup.object().shape({
-//     name: Yup.string().required('O nome é obrigatório'),
-//     email: Yup.string().required('O email é obrigatório'),
-//     avatar_id: Yup.string().required('O avatar é obrigatório'),
-// });
+const schema = Yup.object().shape({
+    name: Yup.string().required('O nome é obrigatório'),
+    email: Yup.string().required('O email é obrigatório'),
+});
 
 export default function RegisterDeliveryman(props) {
     const dispatch = useDispatch();
     const editingParams = props.location.state;
+    const [username, setUsername] = useState('John Doe');
 
     function handleSubmit(data) {
         const params = data;
@@ -35,6 +35,10 @@ export default function RegisterDeliveryman(props) {
             return;
         }
         dispatch(registerDeliverymanRequest(data));
+    }
+
+    function handleAvatar(e) {
+        setUsername(e.currentTarget.value);
     }
 
     const initialData = editingParams;
@@ -62,12 +66,12 @@ export default function RegisterDeliveryman(props) {
                 <Form
                     id="form"
                     name="form"
-                    // schema={schema}
+                    schema={schema}
                     onSubmit={handleSubmit}
                     initialData={initialData}
                 >
                     <div className="row">
-                        <AvatarInput name="avatar_id"/>
+                        <AvatarInput username={username} name="avatar_id" />
                     </div>
                     <div className="row">
                         <div className="field">
@@ -77,6 +81,7 @@ export default function RegisterDeliveryman(props) {
                                 name="name"
                                 type="name"
                                 placeholder="John Doe"
+                                onKeyUp={handleAvatar}
                             />
                         </div>
                     </div>
