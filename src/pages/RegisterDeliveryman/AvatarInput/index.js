@@ -42,9 +42,11 @@ export default function AvatarInput({ username }) {
                 <img
                     src={
                         preview ||
-                        'https://ui-avatars.com/api/?name=' + username.length
-                            ? username.split(' ').join('+')
-                            : 'John Doe' + '&length=2&size=128&bold=true'
+                        'https://ui-avatars.com/api/?name=' +
+                            (username.length
+                                ? username.split(' ').join('+')
+                                : 'John Doe') +
+                            '&length=2&size=128&bold=true'
                     }
                     alt="Avatar do usuário"
                 />
