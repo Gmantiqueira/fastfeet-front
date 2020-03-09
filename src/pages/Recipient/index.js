@@ -7,9 +7,7 @@ import ContentHeader from '@/components/ContentHeader';
 import { useDispatch } from 'react-redux';
 import { deleteRecipientRequest } from '@/store/modules/recipient/actions';
 
-import AddIcon from '@/assets/add.svg';
-import CreateIcon from '@/assets/create.svg';
-import DeleteIcon from '@/assets/delete.svg';
+import { Add, Create, Delete } from '@material-ui/icons';
 
 import { Container } from './styles';
 
@@ -51,14 +49,14 @@ export default function Recipient(props) {
     const actions = [
         {
             text: 'Editar',
-            icon: CreateIcon,
+            icon: Create,
             action: data => {
                 props.history.push('/register/recipient', data);
             },
         },
         {
             text: 'Excluir',
-            icon: DeleteIcon,
+            icon: Delete,
             action: data => handleDelete(data),
         },
     ];
@@ -72,6 +70,7 @@ export default function Recipient(props) {
             <ContentHeader
                 title="Gerenciando destinatários"
                 placeholder="Buscar por destinatários"
+                querySearch={loadRecipients}
             >
                 <div className="button-group">
                     <button
@@ -79,7 +78,7 @@ export default function Recipient(props) {
                         className="primary"
                         type="button"
                     >
-                        <img src={AddIcon} alt="Ícone de adicionar" />
+                        <Add />
                         Cadastrar
                     </button>
                 </div>

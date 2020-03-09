@@ -7,9 +7,7 @@ import { deleteDeliverymanRequest } from '@/store/modules/deliveryman/actions';
 import Grid from '@/components/Grid';
 import ContentHeader from '@/components/ContentHeader';
 
-import AddIcon from '@/assets/add.svg';
-import CreateIcon from '@/assets/create.svg';
-import DeleteIcon from '@/assets/delete.svg';
+import { Add, Create, Delete } from '@material-ui/icons';
 
 import { Container } from './styles';
 
@@ -27,9 +25,9 @@ export default function Deliveryman(props) {
         }
     }
 
-    async function loadDeliverymen() {
+    async function loadDeliverymen(query = '') {
         const { data } = await api.get('deliveryman', {
-            params: { page: 1 },
+            params: { page: 1, q: query },
         });
 
         const deliverymen = [];
@@ -50,14 +48,14 @@ export default function Deliveryman(props) {
     const actions = [
         {
             text: 'Editar',
-            icon: CreateIcon,
+            icon: Create,
             action: data => {
                 props.history.push('/register/deliveryman', data);
             },
         },
         {
             text: 'Excluir',
-            icon: DeleteIcon,
+            icon: Delete,
             action: data => handleDelete(data),
         },
     ];
@@ -71,6 +69,7 @@ export default function Deliveryman(props) {
             <ContentHeader
                 title="Gerenciando entregadores"
                 placeholder="Buscar por entregadores"
+                querySearch={loadDeliverymen}
             >
                 <div className="button-group">
                     <button
@@ -78,8 +77,7 @@ export default function Deliveryman(props) {
                         className="primary"
                         type="button"
                     >
-                        <img src={AddIcon} alt="Ícone de adicionar" />
-                        Cadastrar
+                        <Add /> Cadastrar
                     </button>
                 </div>
             </ContentHeader>

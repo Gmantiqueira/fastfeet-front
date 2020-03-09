@@ -1,11 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Search } from '@material-ui/icons'
+import { Search } from '@material-ui/icons';
 
 import { Wrapper } from './styles';
 
-export default function ContentHeader({ title, placeholder, children }) {
+export default function ContentHeader({
+    title,
+    placeholder,
+    querySearch,
+    children,
+}) {
     return (
         <Wrapper placeholder={placeholder}>
             <div className="topbar actions">
@@ -14,11 +19,14 @@ export default function ContentHeader({ title, placeholder, children }) {
                 <div className="controls">
                     {!!placeholder.length && (
                         <div className="input-container">
-                            <Search/>
+                            <Search />
                             <input
                                 placeholder={placeholder}
                                 name="search"
                                 type="text"
+                                onKeyUp={e =>
+                                    querySearch(e.currentTarget.value)
+                                }
                             />
                         </div>
                     )}

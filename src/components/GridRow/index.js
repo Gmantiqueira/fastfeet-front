@@ -54,7 +54,15 @@ const Content = function Content({
             <img
                 width="45"
                 height="45"
-                src={contentData[field].url}
+                src={
+                    contentData[field]
+                        ? contentData[field].url
+                        : 'https://ui-avatars.com/api/?name=' +
+                          (contentData.name.length
+                              ? contentData.name.split(' ').join('+')
+                              : 'John Doe') +
+                          '&length=2&size=128&bold=true'
+                }
                 alt="Avatar do usuário"
             />
         );

@@ -86,6 +86,7 @@ export default function Delivery(props) {
             <ContentHeader
                 title="Gerenciando encomendas"
                 placeholder="Buscar por encomendas"
+                querySearch={loadDeliveries}
             >
                 <div className="button-group">
                     <button

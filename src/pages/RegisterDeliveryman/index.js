@@ -20,6 +20,7 @@ import { Container } from './styles';
 const schema = Yup.object().shape({
     name: Yup.string().required('O nome é obrigatório'),
     email: Yup.string().required('O email é obrigatório'),
+    avatar_id: Yup.string(),
 });
 
 export default function RegisterDeliveryman(props) {
