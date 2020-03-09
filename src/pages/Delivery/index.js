@@ -59,9 +59,9 @@ export default function Delivery(props) {
 
     const [deliveries, setDeliveries] = useState([]);
 
-    async function loadDeliveries() {
+    async function loadDeliveries(query = '') {
         const { data } = await api.get('delivery', {
-            params: { page: 1 },
+            params: { page: 1, q: query },
         });
 
         const deliveries = [];

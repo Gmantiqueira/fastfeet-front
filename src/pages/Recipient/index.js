@@ -26,9 +26,9 @@ export default function Recipient(props) {
         }
     }
 
-    async function loadRecipients() {
+    async function loadRecipients(query = '') {
         const { data } = await api.get('recipient', {
-            params: { page: 1 },
+            params: { page: 1, q: query },
         });
 
         const recipients = [];
@@ -101,7 +101,7 @@ const gridSettings = [
     },
     {
         title: 'Endereço',
-        key: 'street',
+        key: 'address',
         widthProportion: 1,
     },
     {

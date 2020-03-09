@@ -65,6 +65,15 @@ const Content = function Content({
         );
     }
 
+    if (field === 'address') {
+        const { street, number, city, state } = contentData;
+        return (
+            <span>
+                {street}, {number}, {city} - {state}
+            </span>
+        );
+    }
+
     if (
         contentData[field] &&
         typeof contentData[field] === 'object' &&
