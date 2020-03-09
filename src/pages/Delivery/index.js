@@ -53,10 +53,6 @@ export default function Delivery(props) {
         setModalData(data);
     };
 
-    const handleClose = () => {
-        setOpen(false);
-    };
-
     const [deliveries, setDeliveries] = useState([]);
 
     async function loadDeliveries(query = '') {
@@ -105,7 +101,7 @@ export default function Delivery(props) {
             <TransitionsModal
                 open={open}
                 data={modalData}
-                handleClose={handleClose}
+                handleClose={() => setOpen(false)}
             />
         </Container>
     );

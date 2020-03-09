@@ -1,72 +1,104 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import api from '@/services/api';
 
 import Grid from '@/components/Grid';
 import ContentHeader from '@/components/ContentHeader';
+import TransitionsModal from '@/components/TransitionsModal';
 
-import AddIcon from '@/assets/add.svg';
-import CreateIcon from '@/assets/create.svg';
-import DeleteIcon from '@/assets/delete.svg';
-import SearchIcon from '@/assets/search.svg';
-import ViewIcon from '@/assets/visibility.svg';
+import { useDispatch } from 'react-redux';
+import { deleteProblemRequest } from '@/store/modules/problem/actions';
+
+import { Delete, RemoveRedEye } from '@material-ui/icons';
 
 import { Container } from './styles';
 
-export default function Problems(props) {
-    const gridSettings = [
-        {
-            title: 'Encomenda',
-            key: 'delivery_id',
-            widthProportion: 2.5,
-        },
-        {
-            title: 'Problema',
-            key: 'description',
-            widthProportion: 1,
-        },
-        {
-            title: 'Ações',
-            key: 'actions',
-            widthProportion: 3,
-        },
-    ];
+export default function Problems() {
+    const dispatch = useDispatch();
+    const [open, setOpen] = useState(false);
+    const [modalData, setModalData] = useState(null);
 
-    const data = [
-        {
-            delivery_id: 0,
-            description: 'Carga roubada.',
-        },
-        {
-            delivery_id: 1,
-            description: 'Destinatário ausente ou não mora mais no local.',
-        },
-    ];
+    const handleOpen = data => {
+        setOpen(true);
+        setModalData(data);
+    };
+
+    function handleDelete(data) {
+        const confirmed = window.confirm(
+            'Você está prestes a excluir um problema. Deseja continuar?'
+        );
+        if (confirmed == true) {
+            dispatch(deleteProblemRequest(data.id));
+            loadProblems();
+        }
+    }
+
+    const [problems, setProblems] = useState([]);
+
+    async function loadProblems(query = '') {
+        const { data } = await api.get('problems', {
+            params: { page: 1, q: query },
+        });
+
+        const problems = [];
+
+        data.forEach(problem => {
+            problems.push({
+                ...problem,
+            });
+        });
+
+        setProblems(problems);
+    }
+
+    useEffect(() => {
+        loadProblems();
+    }, []);
 
     const actions = [
         {
             text: 'Visualizar',
-            icon: ViewIcon,
-            action: (data = 'teste visualizar') => console.log(data),
+            icon: RemoveRedEye,
+            action: data => handleOpen(data),
         },
         {
             text: 'Cancelar encomenda',
-            icon: DeleteIcon,
-            action: (data = 'teste excluir') => console.log(data),
+            icon: Delete,
+            action: data => handleDelete(data),
         },
     ];
-
-    function handleRegisterLink() {
-        props.history.push('/register/problems');
-    }
 
     return (
         <Container>
             <ContentHeader title="Problemas na entrega"></ContentHeader>
             <Grid
                 settings={gridSettings}
-                data={data}
+                data={problems}
                 actions={actions}
                 actionsWidth={200}
+            />
+            <TransitionsModal
+                open={open}
+                data={modalData}
+                handleClose={() => setOpen(false)}
             />
         </Container>
     );
 }
+
+const gridSettings = [
+    {
+        title: 'Encomenda',
+        key: 'delivery_id',
+        widthProportion: 2.5,
+    },
+    {
+        title: 'Problema',
+        key: 'description',
+        widthProportion: 1,
+    },
+    {
+        title: 'Ações',
+        key: 'actions',
+        widthProportion: 3,
+    },
+];
