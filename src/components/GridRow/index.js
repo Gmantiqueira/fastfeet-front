@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import generateAvatar from '@/services/ui-avatar';
 
 import Actions from '@/components/Actions';
 
@@ -57,11 +58,7 @@ const Content = function Content({
                 src={
                     contentData[field]
                         ? contentData[field].url
-                        : 'https://ui-avatars.com/api/?name=' +
-                          (contentData.name.length
-                              ? contentData.name.split(' ').join('+')
-                              : 'John Doe') +
-                          '&length=2&size=128&bold=true'
+                        : generateAvatar(contentData.name)
                 }
                 alt="Avatar do usuário"
             />
