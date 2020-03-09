@@ -4,11 +4,13 @@ import api from '@/services/api';
 import Grid from '@/components/Grid';
 import ContentHeader from '@/components/ContentHeader';
 import TransitionsModal from '@/components/TransitionsModal';
+import { toast } from 'react-toastify';
 
 import { useDispatch } from 'react-redux';
 import { deleteDeliveryRequest } from '@/store/modules/delivery/actions';
 
 import { Add, Create, Delete, RemoveRedEye } from '@material-ui/icons';
+import { Dimmer, Loader } from 'semantic-ui-react';
 
 import { Container } from './styles';
 
@@ -54,23 +56,31 @@ export default function Delivery(props) {
     };
 
     const [deliveries, setDeliveries] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     async function loadDeliveries(query = '') {
-        const { data } = await api.get('delivery', {
-            params: { page: 1, q: query },
-        });
-
-        const deliveries = [];
-
-        data.forEach(delivery => {
-            deliveries.push({
-                ...delivery,
-                city: delivery.recipient.city,
-                state: delivery.recipient.state,
+        setLoading(true);
+        try {
+            const { data } = await api.get('delivery', {
+                params: { page: 1, q: query },
             });
-        });
 
-        setDeliveries(deliveries);
+            const deliveries = [];
+
+            data.forEach(delivery => {
+                deliveries.push({
+                    ...delivery,
+                    city: delivery.recipient.city,
+                    state: delivery.recipient.state,
+                });
+            });
+
+            setDeliveries(deliveries);
+            setLoading(false);
+        } catch {
+            toast.error('Falha ao trazer as informações das encomendas.');
+            setLoading(false);
+        }
     }
 
     useEffect(() => {
@@ -79,6 +89,9 @@ export default function Delivery(props) {
 
     return (
         <Container>
+            <Dimmer active={loading} inverted>
+                <Loader>Loading</Loader>
+            </Dimmer>
             <ContentHeader
                 title="Gerenciando encomendas"
                 placeholder="Buscar por encomendas"

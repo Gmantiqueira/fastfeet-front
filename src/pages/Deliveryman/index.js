@@ -6,14 +6,15 @@ import { deleteDeliverymanRequest } from '@/store/modules/deliveryman/actions';
 
 import Grid from '@/components/Grid';
 import ContentHeader from '@/components/ContentHeader';
+import { toast } from 'react-toastify';
 
 import { Add, Create, Delete } from '@material-ui/icons';
+import { Dimmer, Loader } from 'semantic-ui-react';
 
 import { Container } from './styles';
 
 export default function Deliveryman(props) {
     const dispatch = useDispatch();
-    const [deliverymen, setDeliverymen] = useState([]);
 
     function handleDelete(data) {
         const confirmed = window.confirm(
@@ -25,20 +26,30 @@ export default function Deliveryman(props) {
         }
     }
 
+    const [deliverymen, setDeliverymen] = useState([]);
+    const [loading, setLoading] = useState(true);
+
     async function loadDeliverymen(query = '') {
-        const { data } = await api.get('deliveryman', {
-            params: { page: 1, q: query },
-        });
-
-        const deliverymen = [];
-
-        data.forEach(delivery => {
-            deliverymen.push({
-                ...delivery,
+        setLoading(true);
+        try {
+            const { data } = await api.get('deliveryman', {
+                params: { page: 1, q: query },
             });
-        });
 
-        setDeliverymen(deliverymen);
+            const deliverymen = [];
+
+            data.forEach(delivery => {
+                deliverymen.push({
+                    ...delivery,
+                });
+            });
+
+            setDeliverymen(deliverymen);
+            setLoading(false);
+        } catch {
+            toast.error('Falha ao trazer as informações dos entregadores.');
+            setLoading(false);
+        }
     }
 
     useEffect(() => {
@@ -66,6 +77,9 @@ export default function Deliveryman(props) {
 
     return (
         <Container>
+            <Dimmer active={loading} inverted>
+                <Loader>Loading</Loader>
+            </Dimmer>
             <ContentHeader
                 title="Gerenciando entregadores"
                 placeholder="Buscar por entregadores"

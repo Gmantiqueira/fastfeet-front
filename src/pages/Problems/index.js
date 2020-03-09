@@ -4,11 +4,13 @@ import api from '@/services/api';
 import Grid from '@/components/Grid';
 import ContentHeader from '@/components/ContentHeader';
 import TransitionsModal from '@/components/TransitionsModal';
+import { toast } from 'react-toastify';
 
 import { useDispatch } from 'react-redux';
 import { deleteProblemRequest } from '@/store/modules/problem/actions';
 
 import { Delete, RemoveRedEye } from '@material-ui/icons';
+import { Dimmer, Loader } from 'semantic-ui-react';
 
 import { Container } from './styles';
 
@@ -33,21 +35,29 @@ export default function Problems() {
     }
 
     const [problems, setProblems] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-    async function loadProblems(query = '') {
-        const { data } = await api.get('problems', {
-            params: { page: 1, q: query },
-        });
-
-        const problems = [];
-
-        data.forEach(problem => {
-            problems.push({
-                ...problem,
+    async function loadProblems() {
+        setLoading(true);
+        try {
+            const { data } = await api.get('problems', {
+                params: { page: 1 },
             });
-        });
 
-        setProblems(problems);
+            const problems = [];
+
+            data.forEach(problem => {
+                problems.push({
+                    ...problem,
+                });
+            });
+
+            setProblems(problems);
+            setLoading(false);
+        } catch {
+            toast.error('Falha ao trazer as informações dos problemas.');
+            setLoading(false);
+        }
     }
 
     useEffect(() => {
@@ -69,6 +79,9 @@ export default function Problems() {
 
     return (
         <Container>
+            <Dimmer active={loading} inverted>
+                <Loader>Loading</Loader>
+            </Dimmer>
             <ContentHeader title="Problemas na entrega"></ContentHeader>
             <Grid
                 settings={gridSettings}

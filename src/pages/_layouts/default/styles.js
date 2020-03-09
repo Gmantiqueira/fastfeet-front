@@ -12,7 +12,9 @@ export const Header = styled.nav`
     height: 100%;
     flex-wrap: wrap;
     max-height: 64px;
+    position: relative;
     width: 100%;
+    z-index: 1001;
     div {
         align-items: center;
         display: flex;

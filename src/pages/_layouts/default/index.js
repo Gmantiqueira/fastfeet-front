@@ -10,6 +10,8 @@ import Logo from '@/assets/logo.svg';
 
 import { Wrapper, Header } from './styles';
 
+import 'semantic-ui-css/semantic.min.css';
+
 export default function DefaultLayout({ children }) {
     const dispatch = useDispatch();
     function handleSignOut() {

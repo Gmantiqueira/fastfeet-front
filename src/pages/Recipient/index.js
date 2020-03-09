@@ -3,18 +3,18 @@ import api from '@/services/api';
 
 import Grid from '@/components/Grid';
 import ContentHeader from '@/components/ContentHeader';
+import { toast } from 'react-toastify';
 
 import { useDispatch } from 'react-redux';
 import { deleteRecipientRequest } from '@/store/modules/recipient/actions';
 
 import { Add, Create, Delete } from '@material-ui/icons';
+import { Dimmer, Loader } from 'semantic-ui-react';
 
 import { Container } from './styles';
 
 export default function Recipient(props) {
     const dispatch = useDispatch();
-
-    const [recipients, setRecipients] = useState([]);
 
     function handleDelete(data) {
         const confirmed = window.confirm(
@@ -26,20 +26,30 @@ export default function Recipient(props) {
         }
     }
 
+    const [recipients, setRecipients] = useState([]);
+    const [loading, setLoading] = useState(true);
+
     async function loadRecipients(query = '') {
-        const { data } = await api.get('recipient', {
-            params: { page: 1, q: query },
-        });
-
-        const recipients = [];
-
-        data.forEach(delivery => {
-            recipients.push({
-                ...delivery,
+        setLoading(true);
+        try {
+            const { data } = await api.get('recipient', {
+                params: { page: 1, q: query },
             });
-        });
 
-        setRecipients(recipients);
+            const recipients = [];
+
+            data.forEach(delivery => {
+                recipients.push({
+                    ...delivery,
+                });
+            });
+
+            setRecipients(recipients);
+            setLoading(false);
+        } catch {
+            toast.error('Falha ao trazer as informações dos destinatários.');
+            setLoading(false);
+        }
     }
 
     useEffect(() => {
@@ -67,6 +77,9 @@ export default function Recipient(props) {
 
     return (
         <Container>
+            <Dimmer active={loading} inverted>
+                <Loader>Loading</Loader>
+            </Dimmer>
             <ContentHeader
                 title="Gerenciando destinatários"
                 placeholder="Buscar por destinatários"
