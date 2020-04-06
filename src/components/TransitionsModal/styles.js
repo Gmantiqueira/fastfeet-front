@@ -13,6 +13,14 @@ export const Content = styled.div`
         font-family: 'Roboto', sans-serif;
     }
 
+    img {
+        display: block;
+        height: auto;
+        margin: 0 auto;
+        margin-top: 12px;
+        width: 180px;
+    }
+
     p {
         color: #444;
         font-size: 14px;

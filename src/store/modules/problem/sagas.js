@@ -10,15 +10,15 @@ export function* deleteProblem({ payload }) {
     try {
         const { data } = payload;
 
-        yield call(api.delete, `problem/${data}`);
+        yield call(api.delete, `problem/${data}/cancel-delivery`);
 
-        toast.success('Encomenda excluída com sucesso!');
+        toast.success('Encomenda cancelada com sucesso!');
 
         history.push('/problem');
 
         yield put(deleteProblemSuccess());
     } catch (err) {
-        toast.error('Erro ao excluir encomenda, tente novamente!');
+        toast.error('Erro ao cancelar encomenda, tente novamente!');
         yield put(deleteProblemFailure());
     }
 }
