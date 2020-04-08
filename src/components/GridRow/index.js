@@ -53,8 +53,7 @@ const Content = function Content({
     if (field === 'avatar') {
         return (
             <img
-                width="45"
-                height="45"
+                className="width45"
                 src={
                     contentData[field]
                         ? contentData[field].url
@@ -62,6 +61,23 @@ const Content = function Content({
                 }
                 alt="Avatar do usuário"
             />
+        );
+    }
+
+    if (field === 'deliveryman') {
+        return (
+            <>
+                <img
+                    className="width35"
+                    src={
+                        contentData[field].avatar
+                            ? contentData[field].avatar.url
+                            : generateAvatar(contentData[field].name)
+                    }
+                    alt="Avatar do usuário"
+                />
+                <span>{contentData[field].name}</span>
+            </>
         );
     }
 

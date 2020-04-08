@@ -14,7 +14,7 @@ export function* deleteProblem({ payload }) {
 
         toast.success('Encomenda cancelada com sucesso!');
 
-        history.push('/problem');
+        history.push('/problems');
 
         yield put(deleteProblemSuccess());
     } catch (err) {

@@ -105,21 +105,21 @@ const gridSettings = [
     {
         title: 'ID',
         key: 'id',
-        widthProportion: 1.5,
+        widthProportion: 1,
     },
     {
         title: 'Nome',
         key: 'name',
-        widthProportion: 1,
+        widthProportion: 4,
     },
     {
         title: 'Endereço',
         key: 'address',
-        widthProportion: 1,
+        widthProportion: 8,
     },
     {
         title: 'Ações',
         key: 'actions',
-        widthProportion: 1.5,
+        widthProportion: 1,
     },
 ];

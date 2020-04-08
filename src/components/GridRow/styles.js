@@ -19,15 +19,35 @@ export const Wrapper = styled.div`
 export const Column = styled.div`
     align-items: center;
     display: flex;
-    flex-shrink: ${props => props.width};
+    flex: ${props => props.width};
     font-size: 16px;
     line-height: 19px;
+    min-width: 0;
+    padding: 0 8px;
     width: 100%;
+    > span {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+    .width35 {
+        max-width: 35px;
+        min-width: 35px;
+        max-height: 35px;
+        min-height: 35px;
+    }
+    .width45 {
+        max-width: 45px;
+        min-width: 45px;
+        max-height: 45px;
+        min-height: 45px;
+    }
     img {
         border-radius: 50%;
-        height: 35px;
         object-fit: contain;
-        width: 35px;
+    }
+    img + span {
+        margin-left: 5px;
     }
 `;
 
@@ -71,8 +91,9 @@ export const Status = styled.div`
     display: flex;
     font-weight: bold;
     justify-content: center;
+    max-height: 25px;
     max-width: 120px;
-    padding: 4px;
+    padding: 8px 6px;
     width: auto;
     &:before {
         background: ${props => statusColor(props.type).darkColor};

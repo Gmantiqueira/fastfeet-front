@@ -1,10 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import GridRow from '@/components/GridRow';
-import { Wrapper, Column } from './styles';
+import { Wrapper, Column, Scroll } from './styles';
+import { Dimmer, Loader } from 'semantic-ui-react';
 
-export default function Grid({ settings, data, actions, actionsWidth }) {
-    return (
+export default function Grid({
+    loading,
+    settings,
+    data,
+    actions,
+    actionsWidth,
+}) {
+    return loading ? (
+        <Dimmer active={loading} inverted>
+            <Loader>Loading</Loader>
+        </Dimmer>
+    ) : (
         <Wrapper>
             <header>
                 {settings.map(value => {
@@ -19,17 +30,19 @@ export default function Grid({ settings, data, actions, actionsWidth }) {
                     );
                 })}
             </header>
-            {data.map(row => {
-                return (
-                    <GridRow
-                        key={row.id}
-                        settings={settings}
-                        data={row}
-                        actions={actions}
-                        actionsWidth={actionsWidth}
-                    />
-                );
-            })}
+            <Scroll>
+                {data.map(row => {
+                    return (
+                        <GridRow
+                            key={row.id}
+                            settings={settings}
+                            data={row}
+                            actions={actions}
+                            actionsWidth={actionsWidth}
+                        />
+                    );
+                })}
+            </Scroll>
         </Wrapper>
     );
 }

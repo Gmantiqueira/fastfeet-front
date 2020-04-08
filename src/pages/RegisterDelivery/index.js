@@ -36,8 +36,6 @@ export default function RegisterDelivery(props) {
     const editingParams = props.location.state;
 
     function handleSubmit(data) {
-        console.log(data);
-        console.log(editingParams);
         const params = {
             ...data,
             deliveryman_id: data.deliveryman_id.value,

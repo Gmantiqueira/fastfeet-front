@@ -108,26 +108,26 @@ const gridSettings = [
     {
         title: 'ID',
         key: 'id',
-        widthProportion: 1.3,
+        widthProportion: 2,
     },
     {
         title: 'Foto',
         key: 'avatar',
-        widthProportion: 1,
+        widthProportion: 4,
     },
     {
         title: 'Nome',
         key: 'name',
-        widthProportion: 1,
+        widthProportion: 4,
     },
     {
         title: 'Email',
         key: 'email',
-        widthProportion: 1,
+        widthProportion: 4,
     },
     {
         title: 'Ações',
         key: 'actions',
-        widthProportion: 1.3,
+        widthProportion: 1,
     },
 ];

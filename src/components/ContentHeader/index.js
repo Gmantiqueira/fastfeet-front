@@ -25,7 +25,9 @@ export default function ContentHeader({
                                 name="search"
                                 type="text"
                                 onKeyUp={e =>
-                                    querySearch(e.currentTarget.value)
+                                    querySearch(
+                                        e.currentTarget.value.toLowerCase()
+                                    )
                                 }
                             />
                         </div>
