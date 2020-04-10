@@ -24,8 +24,10 @@ export const Column = styled.div`
     line-height: 19px;
     min-width: 0;
     padding: 0 8px;
-    width: 100%;
     > span {
+        color: #666666;
+        font-size: 16px;
+        line-height: 20px;
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;

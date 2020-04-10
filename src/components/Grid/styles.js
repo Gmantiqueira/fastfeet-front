@@ -8,7 +8,9 @@ export const Wrapper = styled.div`
         flex-flow: row nowrap;
         justify-content: space-between;
         padding: 15px 25px;
-        padding-right: 35px;
+        .actions {
+            text-align: center;
+        }
     }
 `;
 
@@ -18,8 +20,8 @@ export const Column = styled.div`
     font-size: 16px;
     font-weight: bold;
     line-height: 21px;
+    min-width: 0;
     padding: 0 8px;
-    width: 100%;
 `;
 
 export const Scroll = styled.div`
