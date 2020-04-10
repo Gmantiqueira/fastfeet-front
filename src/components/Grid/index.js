@@ -11,11 +11,7 @@ export default function Grid({
     actions,
     actionsWidth,
 }) {
-    return loading ? (
-        <Dimmer active={loading} inverted>
-            <Loader>Loading</Loader>
-        </Dimmer>
-    ) : (
+    return (
         <Wrapper>
             <header>
                 {settings.map(value => {
@@ -31,17 +27,23 @@ export default function Grid({
                 })}
             </header>
             <Scroll>
-                {data.map(row => {
-                    return (
-                        <GridRow
-                            key={row.id}
-                            settings={settings}
-                            data={row}
-                            actions={actions}
-                            actionsWidth={actionsWidth}
-                        />
-                    );
-                })}
+                {loading ? (
+                    <Dimmer active={loading} inverted>
+                        <Loader size="large">Carregando dados...</Loader>
+                    </Dimmer>
+                ) : (
+                    data.map(row => {
+                        return (
+                            <GridRow
+                                key={row.id}
+                                settings={settings}
+                                data={row}
+                                actions={actions}
+                                actionsWidth={actionsWidth}
+                            />
+                        );
+                    })
+                )}
             </Scroll>
         </Wrapper>
     );

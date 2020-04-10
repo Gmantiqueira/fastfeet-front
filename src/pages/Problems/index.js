@@ -10,7 +10,6 @@ import { useDispatch } from 'react-redux';
 import { deleteProblemRequest } from '@/store/modules/problem/actions';
 
 import { Delete, RemoveRedEye } from '@material-ui/icons';
-import { Dimmer, Loader } from 'semantic-ui-react';
 
 import { Container } from './styles';
 
@@ -28,7 +27,7 @@ export default function Problems() {
         const confirmed = window.confirm(
             'Você está prestes a excluir um problema. Deseja continuar?'
         );
-        if (confirmed == true) {
+        if (confirmed) {
             dispatch(deleteProblemRequest(data.id));
             loadProblems();
         }
@@ -67,11 +66,13 @@ export default function Problems() {
     const actions = [
         {
             text: 'Visualizar',
+            color: '#8E5BE8',
             icon: RemoveRedEye,
             action: data => handleOpen(data),
         },
         {
             text: 'Cancelar encomenda',
+            color: '#DE3B3B',
             icon: Delete,
             action: data => handleDelete(data),
         },
@@ -79,15 +80,13 @@ export default function Problems() {
 
     return (
         <Container>
-            <Dimmer active={loading} inverted>
-                <Loader>Loading</Loader>
-            </Dimmer>
             <ContentHeader title="Problemas na entrega"></ContentHeader>
             <Grid
                 settings={gridSettings}
                 data={problems}
                 actions={actions}
                 actionsWidth={200}
+                loading={loading}
             />
             <TransitionsModal
                 open={open}
@@ -102,16 +101,16 @@ const gridSettings = [
     {
         title: 'Encomenda',
         key: 'delivery_id',
-        widthProportion: 2.5,
+        widthProportion: 3,
     },
     {
         title: 'Problema',
         key: 'description',
-        widthProportion: 1,
+        widthProportion: 10,
     },
     {
         title: 'Ações',
         key: 'actions',
-        widthProportion: 3,
+        widthProportion: 1,
     },
 ];

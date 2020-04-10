@@ -9,7 +9,6 @@ import ContentHeader from '@/components/ContentHeader';
 import { toast } from 'react-toastify';
 
 import { Add, Create, Delete } from '@material-ui/icons';
-import { Dimmer, Loader } from 'semantic-ui-react';
 
 import { Container } from './styles';
 
@@ -59,6 +58,7 @@ export default function Deliveryman(props) {
     const actions = [
         {
             text: 'Editar',
+            color: '#4D85EE',
             icon: Create,
             action: data => {
                 props.history.push('/register/deliveryman', data);
@@ -66,6 +66,7 @@ export default function Deliveryman(props) {
         },
         {
             text: 'Excluir',
+            color: '#DE3B3B',
             icon: Delete,
             action: data => handleDelete(data),
         },
@@ -77,9 +78,6 @@ export default function Deliveryman(props) {
 
     return (
         <Container>
-            <Dimmer active={loading} inverted>
-                <Loader>Loading</Loader>
-            </Dimmer>
             <ContentHeader
                 title="Gerenciando entregadores"
                 placeholder="Buscar por entregadores"
@@ -99,6 +97,7 @@ export default function Deliveryman(props) {
                 settings={gridSettings}
                 data={deliverymen}
                 actions={actions}
+                loading={loading}
             />
         </Container>
     );
@@ -108,22 +107,22 @@ const gridSettings = [
     {
         title: 'ID',
         key: 'id',
-        widthProportion: 2,
+        widthProportion: 3,
     },
     {
         title: 'Foto',
         key: 'avatar',
-        widthProportion: 4,
+        widthProportion: 5,
     },
     {
         title: 'Nome',
         key: 'name',
-        widthProportion: 4,
+        widthProportion: 5,
     },
     {
         title: 'Email',
         key: 'email',
-        widthProportion: 4,
+        widthProportion: 5,
     },
     {
         title: 'Ações',

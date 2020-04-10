@@ -69,7 +69,7 @@ export const Option = styled.div`
     &:hover {
         color: #444;
     }
-    img {
+    svg {
         margin-right: 8px;
         width: 16px;
     }

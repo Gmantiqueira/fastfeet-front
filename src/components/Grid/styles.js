@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
     height: 100%;
+    position: relative;
     header {
         display: flex;
         flex-flow: row nowrap;
@@ -23,12 +24,5 @@ export const Column = styled.div`
 
 export const Scroll = styled.div`
     height: 100%;
-    max-height: 500px;
-    overflow: hidden;
-    overflow-y: auto;
-
-    ::-webkit-scrollbar,
-    ::-webkit-scrollbar-thumb {
-        border-radius: 8px;
-    }
+    position: relative;
 `;

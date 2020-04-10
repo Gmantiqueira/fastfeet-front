@@ -9,7 +9,6 @@ import { useDispatch } from 'react-redux';
 import { deleteRecipientRequest } from '@/store/modules/recipient/actions';
 
 import { Add, Create, Delete } from '@material-ui/icons';
-import { Dimmer, Loader } from 'semantic-ui-react';
 
 import { Container } from './styles';
 
@@ -20,7 +19,7 @@ export default function Recipient(props) {
         const confirmed = window.confirm(
             'Você está prestes a excluir uma encomenda. Deseja continuar?'
         );
-        if (confirmed == true) {
+        if (confirmed) {
             dispatch(deleteRecipientRequest(data.id));
             loadRecipients();
         }
@@ -59,6 +58,7 @@ export default function Recipient(props) {
     const actions = [
         {
             text: 'Editar',
+            color: '#4D85EE',
             icon: Create,
             action: data => {
                 props.history.push('/register/recipient', data);
@@ -66,6 +66,7 @@ export default function Recipient(props) {
         },
         {
             text: 'Excluir',
+            color: '#DE3B3B',
             icon: Delete,
             action: data => handleDelete(data),
         },
@@ -77,9 +78,6 @@ export default function Recipient(props) {
 
     return (
         <Container>
-            <Dimmer active={loading} inverted>
-                <Loader>Loading</Loader>
-            </Dimmer>
             <ContentHeader
                 title="Gerenciando destinatários"
                 placeholder="Buscar por destinatários"
@@ -96,7 +94,12 @@ export default function Recipient(props) {
                     </button>
                 </div>
             </ContentHeader>
-            <Grid settings={gridSettings} data={recipients} actions={actions} />
+            <Grid
+                settings={gridSettings}
+                data={recipients}
+                actions={actions}
+                loading={loading}
+            />
         </Container>
     );
 }
@@ -110,12 +113,12 @@ const gridSettings = [
     {
         title: 'Nome',
         key: 'name',
-        widthProportion: 4,
+        widthProportion: 5,
     },
     {
         title: 'Endereço',
         key: 'address',
-        widthProportion: 8,
+        widthProportion: 10,
     },
     {
         title: 'Ações',

@@ -34,9 +34,6 @@ export const Wrapper = styled.div`
             padding: 0 15px;
             width: 300px;
         }
-        span {
-            color: #de3b3b;
-        }
         button {
             background: #7d40e7;
             border-radius: 4px;

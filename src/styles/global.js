@@ -32,6 +32,10 @@ export default createGlobalStyle`
         text-decoration: none;
     }
 
+    input + span, #react-select + span {
+        color: #de3b3b;
+    }
+
     ul {
         list-style: none;
     }

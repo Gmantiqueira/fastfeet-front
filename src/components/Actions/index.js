@@ -39,7 +39,7 @@ export default function Actions({ contentData, actions, width }) {
                             key={option.text}
                             onClick={() => option.action(contentData)}
                         >
-                            <option.icon />
+                            <option.icon style={{ fill: option.color }} />
                             {option.text}
                         </Option>
                     );

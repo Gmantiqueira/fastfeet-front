@@ -7,6 +7,9 @@ import { Form, Input } from '@rocketseat/unform';
 import arrowLeftIcon from '@/assets/arrow_left.svg';
 import doneIcon from '@/assets/done.svg';
 
+import api from '@/services/api';
+import generateAvatar from '@/services/ui-avatar';
+
 import {
     registerDeliverymanRequest,
     updateDeliverymanRequest,
@@ -28,7 +31,20 @@ export default function RegisterDeliveryman(props) {
     const editingParams = props.location.state;
     const [username, setUsername] = useState('John Doe');
 
-    function handleSubmit(data) {
+    async function handleSubmit(data) {
+        if (!data.avatar_id) {
+            const form = new FormData();
+
+            const response = await api.get(generateAvatar(data.name), data);
+
+            console.log(response);
+
+            // data.append('file', e.target.files[0]);
+
+            // const response = await api.post('files', data);
+
+            // const { id, url } = response.data;
+        }
         const params = data;
         if (editingParams) {
             params.id = editingParams.id;

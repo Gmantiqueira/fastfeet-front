@@ -23,11 +23,15 @@ const schema = Yup.object().shape({
     recipient_id: Yup.object({
         label: Yup.string(),
         value: Yup.number(),
-    }).required('O destinatário é obrigatório'),
+    })
+        .nullable()
+        .required('O destinatário é obrigatório'),
     deliveryman_id: Yup.object({
         label: Yup.string(),
         value: Yup.number(),
-    }).required('O entregador é obrigatório'),
+    })
+        .nullable()
+        .required('O entregador é obrigatório'),
     product: Yup.string().required('O nome do produto é obrigatório'),
 });
 

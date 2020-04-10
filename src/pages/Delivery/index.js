@@ -17,11 +17,13 @@ export default function Delivery(props) {
     const actions = [
         {
             text: 'Visualizar',
+            color: '#8E5BE8',
             icon: RemoveRedEye,
             action: data => handleOpen(data),
         },
         {
             text: 'Editar',
+            color: '#4D85EE',
             icon: Create,
             action: data => {
                 props.history.push('/register/delivery', data);
@@ -29,6 +31,7 @@ export default function Delivery(props) {
         },
         {
             text: 'Excluir',
+            color: '#DE3B3B',
             icon: Delete,
             action: data => handleDelete(data),
         },
@@ -40,7 +43,7 @@ export default function Delivery(props) {
         const confirmed = window.confirm(
             'Você está prestes a excluir uma encomenda. Deseja continuar?'
         );
-        if (confirmed == true) {
+        if (confirmed) {
             dispatch(deleteDeliveryRequest(data.id));
             loadDeliveries();
         }
