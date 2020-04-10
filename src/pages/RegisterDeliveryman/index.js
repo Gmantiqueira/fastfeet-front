@@ -32,19 +32,6 @@ export default function RegisterDeliveryman(props) {
     const [username, setUsername] = useState('John Doe');
 
     async function handleSubmit(data) {
-        if (!data.avatar_id) {
-            const form = new FormData();
-
-            const response = await api.get(generateAvatar(data.name), data);
-
-            console.log(response);
-
-            // data.append('file', e.target.files[0]);
-
-            // const response = await api.post('files', data);
-
-            // const { id, url } = response.data;
-        }
         const params = data;
         if (editingParams) {
             params.id = editingParams.id;
