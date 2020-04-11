@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 import api from '@/services/api';
@@ -106,11 +106,7 @@ export default function RegisterDelivery(props) {
     return (
         <Container>
             <ContentHeader
-                title={
-                    editingParams
-                        ? 'Edição de encomendas'
-                        : 'Cadastro de encomendas'
-                }
+                title={`${editingParams ? 'Edição' : 'Cadastro'} de encomenda`}
             >
                 <div className="button-group">
                     <button

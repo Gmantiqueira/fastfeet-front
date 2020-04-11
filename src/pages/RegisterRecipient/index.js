@@ -43,7 +43,11 @@ export default function RegisterRecipient(props) {
 
     return (
         <Container>
-            <ContentHeader title="Cadastro de destinatário">
+            <ContentHeader
+                title={`${
+                    editingParams ? 'Edição' : 'Cadastro'
+                } de destinatário`}
+            >
                 <div className="button-group">
                     <button
                         type="button"

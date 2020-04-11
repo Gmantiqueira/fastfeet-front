@@ -24,14 +24,17 @@ export const Menu = styled.div`
     background: #fff;
     border-radius: 4px;
     box-shadow: 0px 0px 2px #00000026;
-    display: ${props => (props.isVisible ? 'flex' : 'none')};
+    display: flex;
     flex-direction: column;
     max-height: 120px;
     left: 50%;
     transform: translateX(-50%);
     margin: 0 auto;
+    opacity: ${props => (props.isVisible ? '1' : '0')};
     padding: 15px 10px;
+    pointer-events: ${props => (props.isVisible ? 'all' : 'none')};
     position: absolute;
+    transition: 0.2s ease opacity;
     top: 40px;
     width: ${props => (props.width ? `${props.width}px` : '150px')};
     z-index: 2;

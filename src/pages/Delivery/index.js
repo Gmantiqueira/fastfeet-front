@@ -3,7 +3,7 @@ import api from '@/services/api';
 
 import Grid from '@/components/Grid';
 import ContentHeader from '@/components/ContentHeader';
-import TransitionsModal from '@/components/TransitionsModal';
+import TransitionsModal from './TransitionsModal';
 import { toast } from 'react-toastify';
 
 import { useDispatch } from 'react-redux';

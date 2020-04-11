@@ -7,9 +7,6 @@ import { Form, Input } from '@rocketseat/unform';
 import arrowLeftIcon from '@/assets/arrow_left.svg';
 import doneIcon from '@/assets/done.svg';
 
-import api from '@/services/api';
-import generateAvatar from '@/services/ui-avatar';
-
 import {
     registerDeliverymanRequest,
     updateDeliverymanRequest,
@@ -49,7 +46,9 @@ export default function RegisterDeliveryman(props) {
 
     return (
         <Container>
-            <ContentHeader title="Cadastro de entregador">
+            <ContentHeader
+                title={`${editingParams ? 'Edição' : 'Cadastro'} de entregador`}
+            >
                 <div className="button-group">
                     <button
                         type="button"
@@ -75,7 +74,10 @@ export default function RegisterDeliveryman(props) {
                     initialData={initialData}
                 >
                     <div className="row">
-                        <AvatarInput username={username} name="avatar_id" />
+                        <AvatarInput
+                            username={initialData ? initialData.name : username}
+                            name="avatar_id"
+                        />
                     </div>
                     <div className="row">
                         <div className="field">

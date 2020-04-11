@@ -4,20 +4,20 @@ import PropTypes from 'prop-types';
 import { Button, Menu, Option } from './styles';
 
 export default function Actions({ contentData, actions, width }) {
-    const [visible, setVisibility] = useState(false);
+    const [visible, setVisibility] = useState(0);
 
     useEffect(() => {
         setVisibility(visible);
     }, [visible]);
 
     const handleClickOutside = e => {
-        if (document.getElementById('menu-button')) {
+        if (document.querySelector(`#menu-button.menu-${contentData.id}`)) {
             const isClickInside = document
-                .getElementById('menu-button')
+                .querySelector(`#menu-button.menu-${contentData.id}`)
                 .contains(e.target);
 
             if (!isClickInside) {
-                setVisibility(false);
+                setVisibility(0);
             }
             document.removeEventListener('click', handleClickOutside);
         }
@@ -26,13 +26,17 @@ export default function Actions({ contentData, actions, width }) {
     return (
         <Button
             id="menu-button"
+            className={`menu-${contentData.id}`}
             onClick={() => {
                 document.addEventListener('click', handleClickOutside);
-                setVisibility(!visible);
+                setVisibility(contentData.id);
+                if (visible === contentData.id) {
+                    setVisibility(0);
+                }
             }}
         >
             <span>...</span>
-            <Menu width={width} isVisible={visible}>
+            <Menu width={width} isVisible={visible === contentData.id}>
                 {actions.map(option => {
                     return (
                         <Option
