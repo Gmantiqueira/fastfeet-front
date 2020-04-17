@@ -41,7 +41,7 @@ export default function ContentHeader({
 
 ContentHeader.propTypes = {
     title: PropTypes.string,
-    placeholder: PropTypes.oneOfType(PropTypes.string, PropTypes.bool),
+    placeholder: PropTypes.string,
     children: PropTypes.element,
 };
 

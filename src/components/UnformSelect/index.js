@@ -23,7 +23,7 @@ export default function UnformSelect({
                 pickerRef.clear();
             },
         });
-    }, [ref.current, fieldName]);
+    }, [fieldName, registerField]);
 
     const selectStyles = {
         control: styles => ({

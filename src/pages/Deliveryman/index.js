@@ -19,7 +19,7 @@ export default function Deliveryman(props) {
         const confirmed = window.confirm(
             'Você está prestes a excluir uma encomenda. Deseja continuar?'
         );
-        if (confirmed == true) {
+        if (confirmed) {
             dispatch(deleteDeliverymanRequest(data.id));
             loadDeliverymen();
         }
