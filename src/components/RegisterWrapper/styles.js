@@ -34,9 +34,12 @@ export const Wrapper = styled.div`
             > input {
                 border: 1px solid #ddd;
                 border-radius: 4px;
-                color: #666;
+                color: #444;
                 height: 45px;
                 padding: 0 15px;
+                &::placeholder {
+                    color: #bbb;
+                }
             }
         }
     }

@@ -13,48 +13,6 @@ import { Add, Create, Delete } from '@material-ui/icons';
 import { Container } from './styles';
 
 export default function Recipient(props) {
-    const dispatch = useDispatch();
-
-    function handleDelete(data) {
-        const confirmed = window.confirm(
-            'Você está prestes a excluir uma encomenda. Deseja continuar?'
-        );
-        if (confirmed) {
-            dispatch(deleteRecipientRequest(data.id));
-            loadRecipients();
-        }
-    }
-
-    const [recipients, setRecipients] = useState([]);
-    const [loading, setLoading] = useState(true);
-
-    async function loadRecipients(query = '') {
-        setLoading(true);
-        try {
-            const { data } = await api.get('recipient', {
-                params: { page: 1, q: query },
-            });
-
-            const recipients = [];
-
-            data.forEach(delivery => {
-                recipients.push({
-                    ...delivery,
-                });
-            });
-
-            setRecipients(recipients);
-            setLoading(false);
-        } catch {
-            toast.error('Falha ao trazer as informações dos destinatários.');
-            setLoading(false);
-        }
-    }
-
-    useEffect(() => {
-        loadRecipients();
-    }, []);
-
     const actions = [
         {
             text: 'Editar',
@@ -72,6 +30,71 @@ export default function Recipient(props) {
         },
     ];
 
+    const dispatch = useDispatch();
+
+    function handleDelete(data) {
+        const confirmed = window.confirm(
+            'Você está prestes a excluir uma encomenda. Deseja continuar?'
+        );
+        if (confirmed) {
+            dispatch(deleteRecipientRequest(data.id));
+            loadRecipients();
+        }
+    }
+
+    const [recipients, setRecipients] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [loadingPage, setLoadingPage] = useState(false);
+    const [haveMoreData, setHaveMoreData] = useState(true);
+    const [querySearch, setQuerySearch] = useState('');
+    const [page, setPagination] = useState(1);
+
+    async function loadRecipients(resetPagination) {
+        if (page > 1) {
+            setLoadingPage(true);
+        } else {
+            setLoading(true);
+        }
+        try {
+            const { data } = await api.get('recipient', {
+                params: { page, q: querySearch },
+            });
+
+            setRecipients(
+                resetPagination || page === 1
+                    ? data
+                    : oldElements => [...oldElements, ...data]
+            );
+
+            if (data.length === 0) {
+                setHaveMoreData(false);
+            }
+
+            setLoading(false);
+            setLoadingPage(false);
+        } catch {
+            toast.error('Falha ao trazer as informações dos destinatários.');
+            setLoading(false);
+            setLoadingPage(false);
+        }
+    }
+
+    useEffect(() => {
+        setPagination(1);
+        loadRecipients(true);
+    }, [querySearch]);
+
+    useEffect(() => {
+        setPagination(1);
+        loadRecipients();
+    }, []);
+
+    useEffect(() => {
+        if (haveMoreData) {
+            loadRecipients();
+        }
+    }, [page]);
+
     function handleRegisterLink() {
         props.history.push('/register/recipient');
     }
@@ -81,7 +104,7 @@ export default function Recipient(props) {
             <ContentHeader
                 title="Gerenciando destinatários"
                 placeholder="Buscar por destinatários"
-                querySearch={loadRecipients}
+                querySearch={setQuerySearch}
             >
                 <div className="button-group">
                     <button
@@ -95,10 +118,12 @@ export default function Recipient(props) {
                 </div>
             </ContentHeader>
             <Grid
+                setPagination={setPagination}
+                loading={loading}
+                loadingPage={loadingPage}
                 settings={gridSettings}
                 data={recipients}
                 actions={actions}
-                loading={loading}
             />
         </Container>
     );

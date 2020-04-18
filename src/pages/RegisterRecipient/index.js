@@ -6,6 +6,7 @@ import { Form, Input } from '@rocketseat/unform';
 
 import arrowLeftIcon from '@/assets/arrow_left.svg';
 import doneIcon from '@/assets/done.svg';
+import InputMask from './InputMask';
 
 import {
     registerRecipientRequest,
@@ -128,10 +129,11 @@ export default function RegisterRecipient(props) {
                         </div>
                         <div className="field">
                             <label htmlFor="zip_code">CEP</label>
-                            <Input
+                            <InputMask
                                 id="zip_code"
                                 name="zip_code"
                                 type="text"
+                                mask="99999-999"
                                 placeholder="12345-678"
                             />
                         </div>

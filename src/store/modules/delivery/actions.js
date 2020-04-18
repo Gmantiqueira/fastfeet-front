@@ -25,7 +25,7 @@ export function deleteDeliveryRequest(data) {
     };
 }
 
-export function deleteDeliverySuccess(data) {
+export function deleteDeliverySuccess() {
     return {
         type: '@delivery/DELETE_DELIVERY_SUCCESS',
     };
@@ -45,7 +45,7 @@ export function updateDeliveryRequest(data) {
     };
 }
 
-export function updateDeliverySuccess(data) {
+export function updateDeliverySuccess() {
     return {
         type: '@delivery/UPDATE_DELIVERY_SUCCESS',
     };

@@ -25,7 +25,7 @@ export function deleteDeliverymanRequest(data) {
     };
 }
 
-export function deleteDeliverymanSuccess(data) {
+export function deleteDeliverymanSuccess() {
     return {
         type: '@deliveryman/DELETE_DELIVERYMAN_SUCCESS',
     };
@@ -45,7 +45,7 @@ export function updateDeliverymanRequest(data) {
     };
 }
 
-export function updateDeliverymanSuccess(data) {
+export function updateDeliverymanSuccess() {
     return {
         type: '@deliveryman/UPDATE_DELIVERYMAN_SUCCESS',
     };

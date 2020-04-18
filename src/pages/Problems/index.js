@@ -35,33 +35,50 @@ export default function Problems() {
 
     const [problems, setProblems] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [loadingPage, setLoadingPage] = useState(false);
+    const [haveMoreData, setHaveMoreData] = useState(true);
+    const [page, setPagination] = useState(1);
 
-    async function loadProblems() {
-        setLoading(true);
+    async function loadProblems(resetPagination) {
+        if (page > 1) {
+            setLoadingPage(true);
+        } else {
+            setLoading(true);
+        }
         try {
             const { data } = await api.get('problems', {
-                params: { page: 1 },
+                params: { page },
             });
 
-            const problems = [];
+            setProblems(
+                resetPagination || page === 1
+                    ? data
+                    : oldElements => [...oldElements, ...data]
+            );
 
-            data.forEach(problem => {
-                problems.push({
-                    ...problem,
-                });
-            });
+            if (data.length === 0) {
+                setHaveMoreData(false);
+            }
 
-            setProblems(problems);
             setLoading(false);
+            setLoadingPage(false);
         } catch {
             toast.error('Falha ao trazer as informações dos problemas.');
             setLoading(false);
+            setLoadingPage(false);
         }
     }
 
     useEffect(() => {
+        setPagination(1);
         loadProblems();
     }, []);
+
+    useEffect(() => {
+        if (haveMoreData) {
+            loadProblems();
+        }
+    }, [page]);
 
     const actions = [
         {
@@ -82,11 +99,13 @@ export default function Problems() {
         <Container>
             <ContentHeader title="Problemas na entrega"></ContentHeader>
             <Grid
+                setPagination={setPagination}
+                loading={loading}
+                loadingPage={loadingPage}
                 settings={gridSettings}
                 data={problems}
                 actions={actions}
                 actionsWidth={200}
-                loading={loading}
             />
             <TransitionsModal
                 open={open}

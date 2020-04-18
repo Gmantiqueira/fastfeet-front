@@ -59,42 +59,73 @@ export default function Delivery(props) {
 
     const [deliveries, setDeliveries] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [loadingPage, setLoadingPage] = useState(false);
+    const [haveMoreData, setHaveMoreData] = useState(true);
+    const [querySearch, setQuerySearch] = useState('');
+    const [page, setPagination] = useState(1);
 
-    async function loadDeliveries(query = '') {
-        setLoading(true);
+    async function loadDeliveries(resetPagination) {
+        if (page > 1) {
+            setLoadingPage(true);
+        } else {
+            setLoading(true);
+        }
         try {
             const { data } = await api.get('delivery', {
-                params: { page: 1, q: query },
+                params: { page, q: querySearch },
             });
 
-            const deliveries = [];
+            const deliveriesArr = [];
 
             data.forEach(delivery => {
-                deliveries.push({
+                deliveriesArr.push({
                     ...delivery,
                     city: delivery.recipient.city,
                     state: delivery.recipient.state,
                 });
             });
 
-            setDeliveries(deliveries);
+            setDeliveries(
+                resetPagination || page === 1
+                    ? deliveriesArr
+                    : oldElements => [...oldElements, ...deliveriesArr]
+            );
+
+            if (deliveriesArr.length === 0) {
+                setHaveMoreData(false);
+            }
+
             setLoading(false);
+            setLoadingPage(false);
         } catch {
             toast.error('Falha ao trazer as informações das encomendas.');
             setLoading(false);
+            setLoadingPage(false);
         }
     }
 
     useEffect(() => {
+        setPagination(1);
+        loadDeliveries(true);
+    }, [querySearch]);
+
+    useEffect(() => {
+        setPagination(1);
         loadDeliveries();
     }, []);
+
+    useEffect(() => {
+        if (haveMoreData) {
+            loadDeliveries();
+        }
+    }, [page]);
 
     return (
         <Container>
             <ContentHeader
                 title="Gerenciando encomendas"
                 placeholder="Buscar por encomendas"
-                querySearch={loadDeliveries}
+                querySearch={setQuerySearch}
             >
                 <div className="button-group">
                     <button
@@ -110,7 +141,9 @@ export default function Delivery(props) {
                 </div>
             </ContentHeader>
             <Grid
+                setPagination={setPagination}
                 loading={loading}
+                loadingPage={loadingPage}
                 settings={gridSettings}
                 data={deliveries}
                 actions={actions}

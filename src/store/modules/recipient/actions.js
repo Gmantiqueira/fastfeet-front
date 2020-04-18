@@ -25,7 +25,7 @@ export function deleteRecipientRequest(data) {
     };
 }
 
-export function deleteRecipientSuccess(data) {
+export function deleteRecipientSuccess() {
     return {
         type: '@recipient/DELETE_RECIPIENT_SUCCESS',
     };
@@ -45,7 +45,7 @@ export function updateRecipientRequest(data) {
     };
 }
 
-export function updateRecipientSuccess(data) {
+export function updateRecipientSuccess() {
     return {
         type: '@recipient/UPDATE_RECIPIENT_SUCCESS',
     };

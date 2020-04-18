@@ -17,7 +17,7 @@ export default function Deliveryman(props) {
 
     function handleDelete(data) {
         const confirmed = window.confirm(
-            'Você está prestes a excluir uma encomenda. Deseja continuar?'
+            'Você está prestes a remover um entregador. Deseja continuar?'
         );
         if (confirmed) {
             dispatch(deleteDeliverymanRequest(data.id));
@@ -27,33 +27,64 @@ export default function Deliveryman(props) {
 
     const [deliverymen, setDeliverymen] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [loadingPage, setLoadingPage] = useState(false);
+    const [haveMoreData, setHaveMoreData] = useState(true);
+    const [querySearch, setQuerySearch] = useState('');
+    const [page, setPagination] = useState(1);
 
-    async function loadDeliverymen(query = '') {
-        setLoading(true);
+    async function loadDeliverymen(resetPagination) {
+        if (page > 1) {
+            setLoadingPage(true);
+        } else {
+            setLoading(true);
+        }
         try {
             const { data } = await api.get('deliveryman', {
-                params: { page: 1, q: query },
+                params: { page, q: querySearch },
             });
 
-            const deliverymen = [];
+            const deliverymenArr = [];
 
             data.forEach(delivery => {
-                deliverymen.push({
+                deliverymenArr.push({
                     ...delivery,
                 });
             });
 
-            setDeliverymen(deliverymen);
+            if (deliverymenArr.length === 0) {
+                setHaveMoreData(false);
+            }
+
+            setDeliverymen(
+                resetPagination || page === 1
+                    ? deliverymenArr
+                    : oldElements => [...oldElements, ...deliverymenArr]
+            );
+
             setLoading(false);
+            setLoadingPage(false);
         } catch {
             toast.error('Falha ao trazer as informações dos entregadores.');
             setLoading(false);
+            setLoadingPage(false);
         }
     }
 
     useEffect(() => {
+        setPagination(1);
+        loadDeliverymen(true);
+    }, [querySearch]);
+
+    useEffect(() => {
+        setPagination(1);
         loadDeliverymen();
     }, []);
+
+    useEffect(() => {
+        if (haveMoreData) {
+            loadDeliverymen();
+        }
+    }, [page]);
 
     const actions = [
         {
@@ -81,7 +112,7 @@ export default function Deliveryman(props) {
             <ContentHeader
                 title="Gerenciando entregadores"
                 placeholder="Buscar por entregadores"
-                querySearch={loadDeliverymen}
+                querySearch={setQuerySearch}
             >
                 <div className="button-group">
                     <button
@@ -94,10 +125,12 @@ export default function Deliveryman(props) {
                 </div>
             </ContentHeader>
             <Grid
+                setPagination={setPagination}
+                loading={loading}
+                loadingPage={loadingPage}
                 settings={gridSettings}
                 data={deliverymen}
                 actions={actions}
-                loading={loading}
             />
         </Container>
     );

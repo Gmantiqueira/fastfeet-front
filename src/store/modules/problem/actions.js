@@ -5,7 +5,7 @@ export function deleteProblemRequest(data) {
     };
 }
 
-export function deleteProblemSuccess(data) {
+export function deleteProblemSuccess() {
     return {
         type: '@problem/DELETE_PROBLEM_SUCCESS',
     };

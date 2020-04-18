@@ -17,8 +17,6 @@ export function* registerRecipient({ payload }) {
     try {
         const { data } = payload;
 
-        console.log(data);
-
         yield call(api.post, 'recipient', data);
 
         toast.success('Encomenda cadastrada com sucesso!');
