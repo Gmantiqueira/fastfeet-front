@@ -130,6 +130,6 @@ const gridSettings = [
     {
         title: 'Ações',
         key: 'actions',
-        widthProportion: 1,
+        widthProportion: 2,
     },
 ];
