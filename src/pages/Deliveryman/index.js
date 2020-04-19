@@ -20,8 +20,10 @@ export default function Deliveryman(props) {
             'Você está prestes a remover um entregador. Deseja continuar?'
         );
         if (confirmed) {
-            dispatch(deleteDeliverymanRequest(data.id));
-            loadDeliverymen();
+            const dispatched = dispatch(deleteDeliverymanRequest(data.id));
+            if (dispatched) {
+                loadDeliverymen();
+            }
         }
     }
 

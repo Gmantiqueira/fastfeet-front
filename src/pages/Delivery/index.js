@@ -44,8 +44,10 @@ export default function Delivery(props) {
             'Você está prestes a excluir uma encomenda. Deseja continuar?'
         );
         if (confirmed) {
-            dispatch(deleteDeliveryRequest(data.id));
-            loadDeliveries();
+            const dispatched = dispatch(deleteDeliveryRequest(data.id));
+            if (dispatched) {
+                loadDeliveries();
+            }
         }
     }
 

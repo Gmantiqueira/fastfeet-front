@@ -34,11 +34,13 @@ export default function Recipient(props) {
 
     function handleDelete(data) {
         const confirmed = window.confirm(
-            'Você está prestes a excluir uma encomenda. Deseja continuar?'
+            'Você está prestes a remover um destinatário. Deseja continuar?'
         );
         if (confirmed) {
-            dispatch(deleteRecipientRequest(data.id));
-            loadRecipients();
+            const dispatched = dispatch(deleteRecipientRequest(data.id));
+            if (dispatched) {
+                loadRecipients();
+            }
         }
     }
 
